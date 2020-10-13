@@ -1,5 +1,3 @@
-CREATE DATABASE container_DB;
-
 CREATE TABLE containers (
     c_ID INT,
     c_dateTime DATETIME,
