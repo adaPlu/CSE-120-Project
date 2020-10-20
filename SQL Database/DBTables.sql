@@ -9,6 +9,6 @@ CREATE TABLE containers (
 
 CREATE TABLE batch (
     b_ID INT,
-    c_latitude DOUBLE(20, 15),
-    c_longitude DOUBLE(20, 15)
+    c_latitude decimal(20, 15),
+    c_longitude decimal(20, 15) 
 );
