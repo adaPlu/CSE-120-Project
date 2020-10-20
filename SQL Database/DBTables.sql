@@ -8,7 +8,7 @@ CREATE TABLE containers (
 )
 
 CREATE TABLE batch (
-    b_ID INT,
-    c_latitude decimal(20, 15),
-    c_longitude decimal(20, 15) 
+    b_batchID INT,
+    b_latitude decimal(20, 15),
+    b_longitude decimal(20, 15) 
 );
