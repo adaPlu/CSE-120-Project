@@ -1,4 +1,5 @@
-/*insert, delete, sort, search*/
+--Insert some sample data?
+--containers
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
 VALUES  (8, 1, '1996-01-15', 8, 1, "Some notes");
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
@@ -15,6 +16,7 @@ INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
 VALUES  (6, 3, '1996-03-15', 8, 2, "Some notes");
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
 VALUES  (7, 4, '1996-02-01', 8, 4, "Some notes");
+--batches
 INSERT INTO batch (b_batchID,b_latitude,b_longitude)
 VALUES  (1, 6.021, 5.312);
 INSERT INTO batch (b_batchID,b_latitude,b_longitude)
@@ -23,3 +25,20 @@ INSERT INTO batch (b_batchID,b_latitude,b_longitude)
 VALUES  (3, 4.021, 1.312);
 INSERT INTO batch (b_batchID,b_latitude,b_longitude)
 VALUES  (4, 3.021, 2.312);
+
+--Queries
+/*insert, delete, sort, search*/
+ SELECT c_ID
+ FROM containers, batch
+ WHERE b_batchID = c_batchID;
+ 
+
+SELECT b_latitude,b_longitude
+ FROM containers, batch
+ WHERE b_batchID = c_batchID
+ GROUP BY b_batchID;
+
+ 
+SELECT b_latitude,b_longitude
+ FROM containers, batch
+ WHERE c_dateTime > '1996-01-01'
