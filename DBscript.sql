@@ -33,12 +33,17 @@ VALUES  (4, 3.021, 2.312);
  WHERE b_batchID = c_batchID;
  
 
-SELECT b_latitude,b_longitude
+ SELECT b_latitude,b_longitude
  FROM containers, batch
  WHERE b_batchID = c_batchID
  GROUP BY b_batchID;
 
  
-SELECT b_latitude,b_longitude
+ SELECT b_latitude,b_longitude
  FROM containers, batch
  WHERE c_dateTime > '1996-01-01'
+
+ SELECT c_ID, b_batchID
+ FROM containers, batch
+ WHERE c_dateTime > '1996-03-01'
+ AND b_batchID = c_batchID;
