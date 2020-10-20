@@ -1,6 +1,6 @@
 /*insert, delete, sort, search*/
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
-VALUES  (8, 1, '1996-01-15', 7, 10, "Some notes");
+VALUES  (8, 1, '1996-01-15', 8, 1, "Some notes");
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
 VALUES  (1, 1, '1996-05-01', 4, 10, "Some notes");
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
@@ -12,7 +12,7 @@ VALUES  (4, 2, '1996-01-15', 7, 10, "Some notes");
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
 VALUES  (5, 2, '1996-05-01', 4, 10, "Some notes");
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
-VALUES  (6, 3, '1996-03-15', 3, 2, "Some notes");
+VALUES  (6, 3, '1996-03-15', 8, 2, "Some notes");
 INSERT INTO containers (c_ID,c_batchID,c_dateTime,c_row,c_section,c_notes)
 VALUES  (7, 4, '1996-02-01', 8, 4, "Some notes");
 INSERT INTO batch (b_batchID,b_latitude,b_longitude)
