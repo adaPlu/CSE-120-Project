@@ -41,7 +41,7 @@ VALUES  (4, 3.021, 2.312);
  
  SELECT b_latitude,b_longitude
  FROM containers, batch
- WHERE c_dateTime > '1996-01-01'
+ WHERE c_dateTime > '1996-01-01';
 
  SELECT c_ID, b_batchID
  FROM containers, batch
