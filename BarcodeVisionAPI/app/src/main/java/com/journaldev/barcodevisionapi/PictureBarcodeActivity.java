@@ -56,7 +56,7 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
         }
 
         detector = new BarcodeDetector.Builder(getApplicationContext())
-                .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();
 
         if (!detector.isOperational()) {
