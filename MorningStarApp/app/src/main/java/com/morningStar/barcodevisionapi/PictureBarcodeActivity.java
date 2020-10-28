@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.morningstar.barcodevisionapi;
 
 import android.Manifest;
 import android.content.Context;

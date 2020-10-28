@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Morning Star Scanning and Tracking</string>
-    <string name="take_barcode_picture">TAKE BARCODE PICTURE</string>
+    <string name="take_barcode_picture">SCAN BARCODES IN PICTURE</string>
     <string name="scan_barcode">SCAN BARCODE</string>
     <string name="open_camera">OPEN CAMERA</string>
     <string name="send_email">SEND EMAIL</string>
-    <string name="add_to_batch">ADD TO BATCH</string>
+    <string name="scan_complete">SCANNING COMPLETE</string>
     <string name="batch_complete">BATCH COMPLETE</string>
 </resources>

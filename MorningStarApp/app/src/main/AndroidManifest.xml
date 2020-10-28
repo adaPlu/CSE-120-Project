@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.journaldev.barcodevisionapi">
+    package="com.morningstar.barcodevisionapi">
 
 
     <uses-feature
@@ -20,17 +20,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.morningstar.barcodevisionapi.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".PictureBarcodeActivity" />
-        <activity android:name=".ScannedBarcodeActivity" />
+        <activity android:name="com.morningstar.barcodevisionapi.PictureBarcodeActivity" />
+        <activity android:name="com.morningstar.barcodevisionapi.ScannedBarcodeActivity" />
         <activity
-            android:name=".EmailActivity"
+            android:name="com.morningstar.barcodevisionapi.EmailActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data

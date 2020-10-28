@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.morningstar.barcodevisionapi;
 
 import android.Manifest;
 import android.content.Intent;
@@ -48,6 +48,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
         btnAction = findViewById(R.id.btnAction);
+        //btnAction2 = findViewById(R.id.btnAction2);
 
 
         btnAction.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +113,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-                Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
 
             @Override

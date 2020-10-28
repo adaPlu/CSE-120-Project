@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BarcodeVisionAPI.iml" filepath="$PROJECT_DIR$/BarcodeVisionAPI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BarcodeVisionAPI.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BarcodeVisionAPI.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MorningStarApp.iml" filepath="$PROJECT_DIR$/.idea/modules/MorningStarApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MorningStarApp.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MorningStarApp.app.iml" />
     </modules>
   </component>
 </project>
