@@ -27,6 +27,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
+    String [][] batch;
+    int code_index, index = 0;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
@@ -34,13 +36,14 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnAction2;
     String intentData = "";
     boolean isEmail = false;
+    boolean batchComplete = false;
+    boolean doneScanning = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
-
         initViews();
     }
 
@@ -70,7 +73,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
     private void initialiseDetectorsAndSources() {
 
-        Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
@@ -120,13 +123,14 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
-
+                    batch[code_index++][index++] = barcodes.valueAt(0).displayValue;
 
                     txtBarcodeValue.post(new Runnable() {
 
                         @Override
                         public void run() {
-                            intentData = barcodes.valueAt(0).displayValue;
+                            //intentData = barcodes.valueAt(0).displayValue;
+                            intentData = batch[code_index-1][index-1];
                             txtBarcodeValue.setText(intentData);
                         }
                     });
@@ -147,7 +151,5 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initialiseDetectorsAndSources();
-
-
     }
 }
