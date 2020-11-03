@@ -1,3 +1,5 @@
+//Ada Pluguez - Morning Star Scanning and Tracking 0.1 11/3/20
+//Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
 package com.morningstar.barcodevisionapi;
 
 import android.Manifest;
@@ -60,8 +62,8 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
                 .build();
 
         if (!detector.isOperational()) {
-            txtResultBody.setText("Detector initialisation failed");
-            return;
+            txtResultBody.setText(getString(R.string.detector_init));
+            //return;
         }
     }
 
@@ -75,11 +77,11 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case R.id.btnOpenCamera:
+        if (v.getId() == R.id.btnOpenCamera) {
+
                 ActivityCompat.requestPermissions(PictureBarcodeActivity.this, new
                         String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
-                break;
+
         }
 
     }
@@ -87,8 +89,7 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_CAMERA_PERMISSION:
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     takeBarcodePicture();
                 } else {
@@ -110,7 +111,7 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
                     SparseArray<Barcode> barcodes = detector.detect(frame);
                     for (int index = 0; index < barcodes.size(); index++) {
                         Barcode code = barcodes.valueAt(index);
-                        txtResultBody.setText(txtResultBody.getText() + "\n" + code.displayValue + "\n");
+                        txtResultBody.setText(getString(R.string.result, txtResultBody.getText(), code.displayValue));
 
                         int type = barcodes.valueAt(index).valueFormat;
                         switch (type) {
@@ -156,10 +157,10 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
                         }
                     }
                     if (barcodes.size() == 0) {
-                        txtResultBody.setText("No barcode could be detected. Please try again.");
+                        txtResultBody.setText(getString(R.string.no_barcode));
                     }
                 } else {
-                    txtResultBody.setText("Detector initialisation failed");
+                    txtResultBody.setText(getString(R.string.detector_init));
                 }
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Failed to load Image", Toast.LENGTH_SHORT)

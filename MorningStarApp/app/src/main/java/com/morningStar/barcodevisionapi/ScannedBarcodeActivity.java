@@ -1,3 +1,5 @@
+//Ada Pluguez - Morning Star Scanning and Tracking 0.1 11/3/20
+//Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
 package com.morningstar.barcodevisionapi;
 
 import android.Manifest;
@@ -24,11 +26,11 @@ import java.io.IOException;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
 
-
+    //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
     String [][] batch;
-    int code_index, index = 0;
+    int batch_index, index = 0;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
@@ -58,6 +60,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                batch_index++;
+
+                /*
                 if (intentData.length() > 0) {
                     if (isEmail)
                         startActivity(new Intent(ScannedBarcodeActivity.this, EmailActivity.class).putExtra("email_address", intentData));
@@ -65,7 +70,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
                     }
                 }
-
+                */
 
             }
         });
@@ -75,16 +80,20 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
         //Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
+        //Creates Barcode detector
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();
 
+        //Manages the camera in conjunction with an underlying detector.
+        //Here SurfaceView is the underlying detector.
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(1920, 1080)
                 .setAutoFocusEnabled(true) //you should add this feature
                 .build();
-
+        //Is used to display camera preview images as it renders the GUI rapidly.
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            //When, in the first instance, the surface is created, this method is called.
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
@@ -102,10 +111,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
             }
 
+            //This method is called when the size or the format of the surface changes.
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             }
-
+            //This is called when the surface is destroyed.
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
                 cameraSource.stop();
@@ -118,19 +128,20 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             public void release() {
                 //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
-
+            //Recieves barcodes displays them, adds each to the same batch, until batch is complete and index is incremented.
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
-                    batch[code_index++][index++] = barcodes.valueAt(0).displayValue;
+                    batch[batch_index][index++] = barcodes.valueAt(0).displayValue;
 
+                    //Display barcodes to textview located above batc complete button
                     txtBarcodeValue.post(new Runnable() {
 
                         @Override
                         public void run() {
                             //intentData = barcodes.valueAt(0).displayValue;
-                            intentData = batch[code_index-1][index-1];
+                            intentData = batch[batch_index-1][index-1];
                             txtBarcodeValue.setText(intentData);
                         }
                     });

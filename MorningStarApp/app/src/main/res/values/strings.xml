@@ -6,4 +6,7 @@
     <string name="send_email">SEND EMAIL</string>
     <string name="scan_complete">SCANNING COMPLETE</string>
     <string name="batch_complete">BATCH COMPLETE</string>
+    <string name="no_barcode">No barcode could be detected. Please try again.</string>
+    <string name="detector_init">Detector initialisation failed.</string>
+    <string name="result"> %1$s\n   %2$s\n</string>
 </resources>
