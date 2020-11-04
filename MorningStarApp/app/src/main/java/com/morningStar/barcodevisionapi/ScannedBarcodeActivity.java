@@ -3,19 +3,16 @@
 package com.morningstar.barcodevisionapi;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -29,8 +26,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
-    String [][] batch;
-    int batch_index, index = 0;
+    String [][] batch = new String[255][255];
+    int batch_count = 0, barcode_count = 0;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
@@ -60,7 +57,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                batch_index++;
+                batch_count++;
 
                 /*
                 if (intentData.length() > 0) {
@@ -133,16 +130,16 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
-                    batch[batch_index][index++] = barcodes.valueAt(0).displayValue;
 
-                    //Display barcodes to textview located above batc complete button
+                    //Display barcodes to textview located above batch complete button
                     txtBarcodeValue.post(new Runnable() {
-
                         @Override
                         public void run() {
+                            batch[batch_count][barcode_count] = barcodes.valueAt(0).displayValue;
                             //intentData = barcodes.valueAt(0).displayValue;
-                            intentData = batch[batch_index-1][index-1];
+                            intentData = batch[batch_count][barcode_count];
                             txtBarcodeValue.setText(intentData);
+                            barcode_count++;
                         }
                     });
 
