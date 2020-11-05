@@ -56,6 +56,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         btnAction2 = findViewById(R.id.btnAction2);
 
         //Batch Complete Button
+
+
         btnAction.setOnClickListener(v -> {
 
             barcode_count = 0;
@@ -77,6 +79,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     startActivity(new Intent(ScannedBarcodeActivity.this, EmailActivity.class).putExtra("email_address", intentData));
                 else {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
+
                 }
             }
             */
@@ -91,6 +94,19 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             batch = new String[255];
             barcode_count = 0;
             //TODO Send user to batch management activity screen
+        });
+
+        //Scanning Complete Button
+        btnAction2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Place batch in SQL
+                //Reset batch
+                //batch = new ArrayList<String>();
+                batch = new String[255];
+                barcode_count = 0;
+                //Send user to batch management activity screen
+            }
         });
     }
 
@@ -153,6 +169,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 if (barcodes.size() != 0) {
 
                     //Display barcodes to textview located above batch complete button
+
+
                     txtBarcodeValue.post(() -> {
                         //TODO:if scanned barcode not in array or array list? Display code and add to batch
                        /*
@@ -173,6 +191,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                             intentData = intentData + " " + batch.get(barcode_count) + "\n";
                             txtBarcodeValue.setText(intentData);
                             barcode_count++;
+
+
                         }
                         */
                         //Store code in array
