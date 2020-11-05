@@ -2,6 +2,7 @@
 //Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
 package com.morningstar.barcodevisionapi;
 
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -55,47 +56,41 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         btnAction2 = findViewById(R.id.btnAction2);
 
         //Batch Complete Button
-        btnAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //batch = new ArrayList<String>();
-               batch = new String[255];
-                barcode_count = 0;
-                //Create SQL Batch and container data for database
+        btnAction.setOnClickListener(v -> {
 
-                //Reset current batch display
-                txtBarcodeValue.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        intentData = "";
-                        txtBarcodeValue.setText(intentData);
-                        barcode_count++;
-                    }
-                });
-                /*Old code
-                if (intentData.length() > 0) {
-                    if (isEmail)
-                        startActivity(new Intent(ScannedBarcodeActivity.this, EmailActivity.class).putExtra("email_address", intentData));
-                    else {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
-                    }
+            barcode_count = 0;
+            //TODO Create SQL Batch and container data for database
+
+            //Reset Batch to Empty
+            //batch = new ArrayList<String>();
+            batch = new String[255];
+
+            //Reset current batch display
+            txtBarcodeValue.post(() -> {
+                intentData = "";
+                txtBarcodeValue.setText(intentData);
+                barcode_count++;
+            });
+            /*Old code
+            if (intentData.length() > 0) {
+                if (isEmail)
+                    startActivity(new Intent(ScannedBarcodeActivity.this, EmailActivity.class).putExtra("email_address", intentData));
+                else {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
                 }
-                */
-
             }
+            */
+
         });
 
         //Scanning Complete Button
-        btnAction2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Place batch in SQL
-                //Reset batch
-                //batch = new ArrayList<String>();
-                batch = new String[255];
-                barcode_count = 0;
-                //Send user to batch management activity screen
-            }
+        btnAction2.setOnClickListener(v -> {
+            //TODO Place batch in SQL
+            //Reset batch
+            //batch = new ArrayList<String>();
+            batch = new String[255];
+            barcode_count = 0;
+            //TODO Send user to batch management activity screen
         });
     }
 
@@ -118,7 +113,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             //When, in the first instance, the surface is created, this method is called.
             @Override
-            public void surfaceCreated(SurfaceHolder holder) {
+            public void surfaceCreated(@androidx.annotation.NonNull SurfaceHolder holder) {
                 try {
                     if (ActivityCompat.checkSelfPermission(ScannedBarcodeActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surfaceView.getHolder());
@@ -136,11 +131,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
             //This method is called when the size or the format of the surface changes.
             @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            public void surfaceChanged(@androidx.annotation.NonNull SurfaceHolder holder, int format, int width, int height) {
             }
             //This is called when the surface is destroyed.
             @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
+            public void surfaceDestroyed(@androidx.annotation.NonNull SurfaceHolder holder) {
                 cameraSource.stop();
             }
         });
@@ -158,41 +153,37 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 if (barcodes.size() != 0) {
 
                     //Display barcodes to textview located above batch complete button
-                    txtBarcodeValue.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    txtBarcodeValue.post(() -> {
+                        //TODO:if scanned barcode not in array or array list? Display code and add to batch
+                       /*
+                        boolean contains = false;
+                        if(batch.contains(barcodes.valueAt(0).displayValue))
+                            contains = true;
 
-                            //TODO:if scanned barcode not in array or array list? Display code and add to batch
-                           /*
-                            boolean contains = false;
-                            if(batch.contains(barcodes.valueAt(0).displayValue))
+                        for (int i = 0; i < batch.size(); i++) {
+                            if(batch.get(i).equals(barcodes.valueAt(0).displayValue))
                                 contains = true;
+                        }
 
-                            for (int i = 0; i < batch.size(); i++) {
-                                if(batch.get(i).equals(barcodes.valueAt(0).displayValue))
-                                    contains = true;
-                            }
-
-                            if(!contains){
-                                //Store code in array
-                                batch.add(barcodes.valueAt(0).displayValue);
-                                //intentData = barcodes.valueAt(0).displayValue;
-                                //Display Current batch
-                                intentData = intentData + " " + batch.get(barcode_count) + "\n";
-                                txtBarcodeValue.setText(intentData);
-                                barcode_count++;
-                            }
-                            */
+                        if(!contains){
                             //Store code in array
-                            batch[barcode_count] = barcodes.valueAt(0).displayValue;
+                            batch.add(barcodes.valueAt(0).displayValue);
                             //intentData = barcodes.valueAt(0).displayValue;
                             //Display Current batch
-                            intentData = intentData + " " + batch[barcode_count] + "\n";
+                            intentData = intentData + " " + batch.get(barcode_count) + "\n";
                             txtBarcodeValue.setText(intentData);
                             barcode_count++;
-
-
                         }
+                        */
+                        //Store code in array
+                        batch[barcode_count] = barcodes.valueAt(0).displayValue;
+                        //intentData = barcodes.valueAt(0).displayValue;
+                        //Display Current batch
+                        intentData = intentData + " " + batch[barcode_count] + "\n";
+                        txtBarcodeValue.setText(intentData);
+                        barcode_count++;
+
+
                     });
 
                 }
