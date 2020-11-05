@@ -20,23 +20,25 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
 
     //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
-    String [][] batch = new String[255][255];
-    int batch_count = 0, barcode_count = 0;
+    String [] batch = new String[255];
+    //ArrayList<String> batch = new ArrayList<String>();
+    int barcode_count = 0;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     Button btnAction;
     Button btnAction2;
     String intentData = "";
-    boolean isEmail = false;
-    boolean batchComplete = false;
-    boolean doneScanning = false;
+    boolean firstBatch = true;
+
 
 
     @Override
@@ -50,16 +52,27 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
         btnAction = findViewById(R.id.btnAction);
-        //btnAction2 = findViewById(R.id.btnAction2);
+        btnAction2 = findViewById(R.id.btnAction2);
 
-
+        //Batch Complete Button
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //batch = new ArrayList<String>();
+               batch = new String[255];
+                barcode_count = 0;
+                //Create SQL Batch and container data for database
 
-                batch_count++;
-
-                /*
+                //Reset current batch display
+                txtBarcodeValue.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        intentData = "";
+                        txtBarcodeValue.setText(intentData);
+                        barcode_count++;
+                    }
+                });
+                /*Old code
                 if (intentData.length() > 0) {
                     if (isEmail)
                         startActivity(new Intent(ScannedBarcodeActivity.this, EmailActivity.class).putExtra("email_address", intentData));
@@ -69,6 +82,19 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 }
                 */
 
+            }
+        });
+
+        //Scanning Complete Button
+        btnAction2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Place batch in SQL
+                //Reset batch
+                //batch = new ArrayList<String>();
+                batch = new String[255];
+                barcode_count = 0;
+                //Send user to batch management activity screen
             }
         });
     }
@@ -135,11 +161,37 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     txtBarcodeValue.post(new Runnable() {
                         @Override
                         public void run() {
-                            batch[batch_count][barcode_count] = barcodes.valueAt(0).displayValue;
+
+                            //TODO:if scanned barcode not in array or array list? Display code and add to batch
+                           /*
+                            boolean contains = false;
+                            if(batch.contains(barcodes.valueAt(0).displayValue))
+                                contains = true;
+
+                            for (int i = 0; i < batch.size(); i++) {
+                                if(batch.get(i).equals(barcodes.valueAt(0).displayValue))
+                                    contains = true;
+                            }
+
+                            if(!contains){
+                                //Store code in array
+                                batch.add(barcodes.valueAt(0).displayValue);
+                                //intentData = barcodes.valueAt(0).displayValue;
+                                //Display Current batch
+                                intentData = intentData + " " + batch.get(barcode_count) + "\n";
+                                txtBarcodeValue.setText(intentData);
+                                barcode_count++;
+                            }
+                            */
+                            //Store code in array
+                            batch[barcode_count] = barcodes.valueAt(0).displayValue;
                             //intentData = barcodes.valueAt(0).displayValue;
-                            intentData = batch[batch_count][barcode_count];
+                            //Display Current batch
+                            intentData = intentData + " " + batch[barcode_count] + "\n";
                             txtBarcodeValue.setText(intentData);
                             barcode_count++;
+
+
                         }
                     });
 
