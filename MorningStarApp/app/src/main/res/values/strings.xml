@@ -6,4 +6,15 @@
     <string name="send_email">SEND EMAIL</string>
     <string name="scan_complete">SCANNING COMPLETE</string>
     <string name="batch_complete">BATCH COMPLETE</string>
+    <string name="scan">Scan</string>
+    <string name="morningstar">MorningStar</string>
+    <string name="edit_batches">Edit Batches</string>
+    <string name="sync">Sync</string>
+    <string name="view_batches">View Batches</string>
+    <string name="todo">TODO</string>
+    <string name="morningstar">MorningStar</string>
+    <string name="scan">Scan</string>
+    <string name="edit_batches">Edit Batches</string>
+    <string name="sync">Sync</string>
+    <string name="view_batches">View Batches</string>
 </resources>
