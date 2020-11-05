@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
+        /*
         switch (v.getId()) {
             case R.id.btnTakePicture:
                 startActivity(new Intent(MainActivity.this, PictureBarcodeActivity.class));
@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
                 break;
         }
-
+        */
+        if(v.getId() == R.id.btnTakePicture){
+            startActivity(new Intent(MainActivity.this, PictureBarcodeActivity.class));
+        }
+        if(v.getId() == R.id.btnScanBarcode){
+            startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
+        }
     }
 }

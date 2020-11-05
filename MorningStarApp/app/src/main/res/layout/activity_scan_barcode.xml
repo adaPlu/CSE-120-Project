@@ -11,10 +11,9 @@
         android:layout_height="620dp"
         android:layout_above="@+id/btnAction"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
+
         android:layout_marginBottom="-3dp" />
 
     <TextView
@@ -23,15 +22,13 @@
         android:layout_height="615dp"
         android:layout_above="@+id/btnAction"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+
         android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="46dp"
         android:layout_marginEnd="243dp"
-        android:layout_marginRight="243dp"
+
         android:layout_marginBottom="6dp"
         android:text="@string/no_barcode"
         android:textColor="@android:color/white"

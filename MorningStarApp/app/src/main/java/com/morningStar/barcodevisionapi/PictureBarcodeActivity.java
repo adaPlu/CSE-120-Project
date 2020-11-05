@@ -2,6 +2,7 @@
 //Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
 package com.morningstar.barcodevisionapi;
 
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
@@ -87,7 +87,7 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @androidx.annotation.NonNull String[] permissions, @androidx.annotation.NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
@@ -100,6 +100,7 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             launchMediaScanIntent();
             try {
@@ -178,7 +179,7 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@androidx.annotation.NonNull Bundle outState) {
         if (imageUri != null) {
             outState.putString(SAVED_INSTANCE_URI, imageUri.toString());
             outState.putString(SAVED_INSTANCE_RESULT, txtResultBody.getText().toString());

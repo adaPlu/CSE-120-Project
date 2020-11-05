@@ -50,7 +50,7 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
+/*
         switch (v.getId()) {
             case R.id.btnTakePicture:
                 startActivity(new Intent(EmailActivity.this, PictureBarcodeActivity.class));
@@ -58,6 +58,14 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnScanBarcode:
                 startActivity(new Intent(EmailActivity.this, ScannedBarcodeActivity.class));
                 break;
+        }
+
+ */
+        if(v.getId() == R.id.btnTakePicture){
+            startActivity(new Intent(EmailActivity.this, PictureBarcodeActivity.class));
+        }
+        if(v.getId() == R.id.btnScanBarcode){
+            startActivity(new Intent(EmailActivity.this, ScannedBarcodeActivity.class));
         }
 
     }
