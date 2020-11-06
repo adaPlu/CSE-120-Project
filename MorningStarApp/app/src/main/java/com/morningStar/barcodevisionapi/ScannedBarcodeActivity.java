@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
-
     //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
@@ -97,16 +96,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         });
 
         //Scanning Complete Button
-        btnAction2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Place batch in SQL
-                //Reset batch
-                //batch = new ArrayList<String>();
-                batch = new String[255];
-                barcode_count = 0;
-                //Send user to batch management activity screen
-            }
+        btnAction2.setOnClickListener(v -> {
+            //Place batch in SQL
+            //Reset batch
+            //batch = new ArrayList<String>();
+            batch = new String[255];
+            barcode_count = 0;
+            //Send user to batch management activity screen
         });
     }
 
@@ -169,8 +165,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 if (barcodes.size() != 0) {
 
                     //Display barcodes to textview located above batch complete button
-
-
                     txtBarcodeValue.post(() -> {
                         //TODO:if scanned barcode not in array or array list? Display code and add to batch
                        /*
