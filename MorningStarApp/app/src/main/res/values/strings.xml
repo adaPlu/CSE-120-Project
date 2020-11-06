@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Morning Star Scanning and Tracking</string>
+    <string name="app_name">Morning Star ScanTrack" </string>
     <string name="take_barcode_picture">SCAN BARCODES IN PICTURE</string>
     <string name="scan_barcode">SCAN BARCODE</string>
     <string name="open_camera">OPEN CAMERA</string>
@@ -10,7 +10,8 @@
     <string name="detector_init">Detector initialisation failed.</string>
     <string name="result"> %1$s\n   %2$s\n</string>
     <string name="scan">Scan</string>
-    <string name="morningstar">MorningStar</string>
+    <string name="logo">Logo</string>
+    <string name="morningstar">Morning Star</string>
     <string name="edit_batches">Edit Batches</string>
     <string name="sync">Sync</string>
     <string name="view_batches">View Batches</string>
