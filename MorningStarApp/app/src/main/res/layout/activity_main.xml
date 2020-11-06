@@ -12,6 +12,7 @@
         android:layout_width="280dp"
         android:layout_height="190dp"
         android:layout_centerHorizontal="true"
+        android:contentDescription="@string/logo"
         android:src="@mipmap/morning_star_oval_logo" />
 
     <Button
@@ -22,7 +23,7 @@
         android:layout_centerVertical="true"
         android:text="@string/take_barcode_picture" />
 
-    <Button
+         <Button
         android:id="@+id/btnScanBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
