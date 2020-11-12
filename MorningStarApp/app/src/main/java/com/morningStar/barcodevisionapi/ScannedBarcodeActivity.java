@@ -6,8 +6,10 @@ package com.morningstar.barcodevisionapi;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -28,7 +30,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
-    String [] batch = new String[255];
+    String[] batch = new String[255];
     //ArrayList<String> batch = new ArrayList<String>();
     int barcode_count = 0;
     private BarcodeDetector barcodeDetector;
@@ -38,7 +40,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnAction2;
     String intentData = "";
     boolean firstBatch = true;
-
 
 
     @Override
@@ -145,6 +146,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             public void surfaceChanged(@androidx.annotation.NonNull SurfaceHolder holder, int format, int width, int height) {
             }
+
             //This is called when the surface is destroyed.
             @Override
             public void surfaceDestroyed(@androidx.annotation.NonNull SurfaceHolder holder) {
@@ -158,6 +160,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             public void release() {
                 //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
+
             //Recieves barcodes displays them, adds each to the same batch, until batch is complete and index is incremented.
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {

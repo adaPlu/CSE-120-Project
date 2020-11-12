@@ -2,7 +2,9 @@ package com.morningstar.barcodevisionapi;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +15,6 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
     EditText inSubject, inBody;
     TextView txtEmailAddress;
     Button btnSendEmail;
-
 
 
     @Override
@@ -61,10 +62,10 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
         }
 
  */
-        if(v.getId() == R.id.btnTakePicture){
+        if (v.getId() == R.id.btnTakePicture) {
             startActivity(new Intent(EmailActivity.this, PictureBarcodeActivity.class));
         }
-        if(v.getId() == R.id.btnScanBarcode){
+        if (v.getId() == R.id.btnScanBarcode) {
             startActivity(new Intent(EmailActivity.this, ScannedBarcodeActivity.class));
         }
 
