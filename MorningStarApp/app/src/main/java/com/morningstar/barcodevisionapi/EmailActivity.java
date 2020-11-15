@@ -34,17 +34,14 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
             txtEmailAddress.setText("Recipient : " + getIntent().getStringExtra("email_address"));
         }
 
-        btnSendEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{txtEmailAddress.getText().toString()});
-                intent.putExtra(Intent.EXTRA_SUBJECT, inSubject.getText().toString().trim());
-                intent.putExtra(Intent.EXTRA_TEXT, inBody.getText().toString().trim());
+        btnSendEmail.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{txtEmailAddress.getText().toString()});
+            intent.putExtra(Intent.EXTRA_SUBJECT, inSubject.getText().toString().trim());
+            intent.putExtra(Intent.EXTRA_TEXT, inBody.getText().toString().trim());
 
-                startActivity(Intent.createChooser(intent, "Send Email"));
-            }
+            startActivity(Intent.createChooser(intent, "Send Email"));
         });
     }
 
