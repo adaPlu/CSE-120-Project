@@ -1,17 +1,15 @@
 package com.morningstar.barcodevisionapi;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.database.Cursor;
-//import android.support.v7.app.AppCompactActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 
-import com.morningStar.barcodevisionapi.DBManager;
-
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
 
     Button btnTakePicture, btnScanBarcode;
 
@@ -42,6 +40,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        /*
         switch (v.getId()) {
             case R.id.btnTakePicture:
                 startActivity(new Intent(MainActivity.this, PictureBarcodeActivity.class));
@@ -50,6 +49,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
                 break;
         }
-
+        */
+        if(v.getId() == R.id.btnTakePicture){
+            startActivity(new Intent(MainActivity.this, PictureBarcodeActivity.class));
+        }
+        if(v.getId() == R.id.btnScanBarcode){
+            startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
+        }
     }
 }

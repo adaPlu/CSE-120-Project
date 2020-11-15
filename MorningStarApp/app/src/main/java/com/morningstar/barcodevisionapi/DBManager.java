@@ -1,4 +1,4 @@
-package com.morningStar.barcodevisionapi;
+package com.morningstar.barcodevisionapi;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -68,15 +68,13 @@ public class DBManager {
         contentValue.put("c_Date", date);
         contentValue.put("c_Row", row);
         contentValue.put("c_Section", section);
-        int i = database.update("Container", contentValue, "c_Barcode = " + barcode, null);
-        return i;
+        return database.update("Container", contentValue, "c_Barcode = " + barcode, null);
     }
     public int update_batch(int batchID, double latitude, double longitude) {
         ContentValues contentValue = new ContentValues();
         contentValue.put("b_Latitude", latitude);
         contentValue.put("b_longitude", longitude);
-        int i = database.update("Batch", contentValue, "b_BatchID = " + batchID, null);
-        return i;
+        return database.update("Batch", contentValue, "b_BatchID = " + batchID, null);
     }
 
     public void delete_container(String barcode) {
