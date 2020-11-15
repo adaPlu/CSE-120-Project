@@ -87,7 +87,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
         //Scanning Complete Button
         btnAction2.setOnClickListener(v -> {
-            //TODO Place batch in SQL
+            //TODO Place batch in SQL if batch contains at least one container
             //Reset batch
             //batch = new ArrayList<String>();
             batch = new String[255];
@@ -164,9 +164,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
 
+
                     //Display barcodes to textview located above batch complete button
                     txtBarcodeValue.post(() -> {
                         //TODO:if scanned barcode not in array or array list? Display code and add to batch
+
                        /*
                         boolean contains = false;
                         if(batch.contains(barcodes.valueAt(0).displayValue))
@@ -189,6 +191,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
                         }
                         */
+                        //TODO Create SQL container per barcode
+                        //TODO Add to SQL Batch
                         //Store code in array
                         batch[barcode_count] = barcodes.valueAt(0).displayValue;
                         //intentData = barcodes.valueAt(0).displayValue;
