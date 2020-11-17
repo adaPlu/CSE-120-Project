@@ -37,24 +37,44 @@ public class DBManager {
         contentValue.put("c_Section", section);
         database.insert("Container", null, contentValue);
     }
-    public void insert_batch(double latitude, double longitude) {
+    public void insert_batch(double latitude, double longitude, int count) {
         ContentValues contentValue = new ContentValues();
         contentValue.put("b_Latitude", latitude);
         contentValue.put("b_longitude", longitude);
+        contentValue.put("b_containerCount", count);
         database.insert("Batch", null, contentValue);
+    }
+
+
+    public Cursor search_containers(String barcode) {
+        String[] columns = new String[]{"c_BatchID", "c_Barcode", "c_Date", "c_Row", "c_Section"};
+        Cursor cursor = database.query("Container", null, "c_Barcode = " + barcode, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public Cursor search_batches(String batchID) {
+        String[] columns = new String[] {"b_BatchID", "b_Latitude", "b_Longitude", "b_containerCount"};
+        Cursor cursor = database.query("Batch", null, "b_BatchID = " + batchID, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
     }
 
     public Cursor fetch_containers() {
         String[] columns = new String[] {"c_BatchID", "c_Barcode", "c_Date", "c_Row", "c_Section"};
-        Cursor cursor = database.query("Container", columns, null, null, null, null, null);
+        Cursor cursor = database.query("Container", null, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         return cursor;
     }
     public Cursor fetch_batches() {
-        String[] columns = new String[] {"b_BatchID, b_Latitude, b_Longitude"};
-        Cursor cursor = database.query("Batch", columns, null, null, null, null, null);
+        String[] columns = new String[] {"b_BatchID", "b_Latitude", "b_Longitude", "b_containerCount"};
+        Cursor cursor = database.query("Batch", null, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -71,10 +91,11 @@ public class DBManager {
         int i = database.update("Container", contentValue, "c_Barcode = " + barcode, null);
         return i;
     }
-    public int update_batch(int batchID, double latitude, double longitude) {
+    public int update_batch(int batchID, double latitude, double longitude, int containerCount) {
         ContentValues contentValue = new ContentValues();
         contentValue.put("b_Latitude", latitude);
         contentValue.put("b_longitude", longitude);
+        contentValue.put("b_containerCount", containerCount);
         int i = database.update("Batch", contentValue, "b_BatchID = " + batchID, null);
         return i;
     }

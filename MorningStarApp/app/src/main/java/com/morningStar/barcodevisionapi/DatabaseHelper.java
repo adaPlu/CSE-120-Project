@@ -22,7 +22,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_BATCH_TABLE = "create table Batch(" +
             "b_BatchID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "b_Latitude REAL," +
-            "b_Longitude REAL);";
+            "b_Longitude REAL," +
+            "b_containerCount INTEGER);";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
