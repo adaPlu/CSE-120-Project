@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.morningstar.barcodevisionapi">
 
 
@@ -30,6 +31,8 @@
 
         <activity android:name="com.morningstar.barcodevisionapi.PictureBarcodeActivity" />
         <activity android:name="com.morningstar.barcodevisionapi.ScannedBarcodeActivity" />
+        <activity android:name="com.morningstar.barcodevisionapi.BatchManagement" />
+        <activity android:name="com.morningStar.barcodevisionapi.SearchActivity" />
         <activity
             android:name="com.morningstar.barcodevisionapi.EmailActivity"
             android:windowSoftInputMode="adjustPan" />

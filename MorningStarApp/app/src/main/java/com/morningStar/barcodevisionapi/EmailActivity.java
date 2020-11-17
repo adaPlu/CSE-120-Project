@@ -61,9 +61,9 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
         }
 
  */
-        if(v.getId() == R.id.btnTakePicture){
-            startActivity(new Intent(EmailActivity.this, PictureBarcodeActivity.class));
-        }
+//        if(v.getId() == R.id.btnTakePicture){
+//            startActivity(new Intent(EmailActivity.this, PictureBarcodeActivity.class));
+//        }
         if(v.getId() == R.id.btnScanBarcode){
             startActivity(new Intent(EmailActivity.this, ScannedBarcodeActivity.class));
         }
