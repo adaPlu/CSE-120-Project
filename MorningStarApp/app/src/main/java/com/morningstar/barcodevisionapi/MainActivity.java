@@ -9,15 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 
-import com.morningStar.barcodevisionapi.DBManager;
-
 public class MainActivity extends Activity implements View.OnClickListener {
 
     Button btnTakePicture, btnScanBarcode;
-
     private DBManager dbManager;
     private SimpleCursorAdapter adapter;
 
+    //Create database if doesnt exist, connect to existing if exists
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +30,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void initViews() {
-        btnTakePicture = findViewById(R.id.btnTakePicture);
         btnScanBarcode = findViewById(R.id.btnScanBarcode);
         btnTakePicture.setOnClickListener(this);
         btnScanBarcode.setOnClickListener(this);
@@ -42,6 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+       /*
         switch (v.getId()) {
             case R.id.btnTakePicture:
                 startActivity(new Intent(MainActivity.this, PictureBarcodeActivity.class));
@@ -50,6 +48,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
                 break;
         }
+        */
 
+        if(v.getId() == R.id.btnScanBarcode){
+            startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
+        }
     }
 }

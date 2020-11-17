@@ -5,14 +5,15 @@ package com.morningstar.barcodevisionapi;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.Button;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -21,8 +22,6 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
     //Variables
@@ -38,13 +37,19 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnAction2;
     String intentData = "";
     boolean firstBatch = true;
-
+    private DBManager dbManager;
+    private SimpleCursorAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
+        dbManager = new DBManager(this);
+        dbManager.open();
+        Cursor container_cursor = dbManager.fetch_containers();
+        Cursor batch_cursor = dbManager.fetch_batches();
+
         initViews();
     }
 
@@ -55,17 +60,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         btnAction2 = findViewById(R.id.btnAction2);
 
         //Batch Complete Button
-
-
         btnAction.setOnClickListener(v -> {
-
             barcode_count = 0;
             //TODO Create SQL Batch and container data for database
-
+            //See add record in addCountryActivity
             //Reset Batch to Empty
             //batch = new ArrayList<String>();
             batch = new String[255];
-
             //Reset current batch display
             txtBarcodeValue.post(() -> {
                 intentData = "";
@@ -95,15 +96,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             //TODO Send user to batch management activity screen
         });
 
-        //Scanning Complete Button
-        btnAction2.setOnClickListener(v -> {
-            //Place batch in SQL
-            //Reset batch
-            //batch = new ArrayList<String>();
-            batch = new String[255];
-            barcode_count = 0;
-            //Send user to batch management activity screen
-        });
+
     }
 
     private void initialiseDetectorsAndSources() {
