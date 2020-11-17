@@ -46,9 +46,18 @@ public class DBManager {
     }
 
 
-    public Cursor search_containers(String barcode) {
+    public Cursor search_containers_barcode(String barcode) {
         String[] columns = new String[]{"c_BatchID", "c_Barcode", "c_Date", "c_Row", "c_Section"};
         Cursor cursor = database.query("Container", null, "c_Barcode = " + barcode, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public Cursor search_containers_batchID(String batchID) {
+        String[] columns = new String[]{"c_BatchID", "c_Barcode", "c_Date", "c_Row", "c_Section"};
+        Cursor cursor = database.query("Container", null, "c_batchID = " + batchID, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -72,6 +81,7 @@ public class DBManager {
         }
         return cursor;
     }
+
     public Cursor fetch_batches() {
         String[] columns = new String[] {"b_BatchID", "b_Latitude", "b_Longitude", "b_containerCount"};
         Cursor cursor = database.query("Batch", null, null, null, null, null, null);
