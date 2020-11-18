@@ -33,14 +33,17 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import java.sql.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.stream.Stream;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
@@ -208,11 +211,14 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         barcode_count++;
 
                         //TODO grab date/time of scan
+                        Date currentTime = Calendar.getInstance().getTime();
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                        String strDate = dateFormat.format(currentTime);
                         //TODO get row input
                         //TODO get section input
 
                         //TODO Create container on each Scan
-                        //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue,);
+                        dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, 0, 0);
 
                         //TODO add to current batch
                         //TODO Notify user of a repeated barcode and do not add to batch
