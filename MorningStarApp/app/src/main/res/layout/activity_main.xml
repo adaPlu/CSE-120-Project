@@ -9,26 +9,44 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="280dp"
-        android:layout_height="190dp"
+        android:layout_width="356dp"
+        android:layout_height="202dp"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/logo"
         android:src="@mipmap/morning_star_oval_logo" />
 
     <Button
-        android:id="@+id/btnTakePicture"
+        android:id="@+id/btnScanBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/take_barcode_picture" />
+        android:text="@string/scan_barcode" />
 
          <Button
-        android:id="@+id/btnScanBarcode"
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnTakePicture"
+        android:layout_below="@+id/btnView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="@string/scan_barcode" />
+        android:text="@string/search_db" />
+
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnScanBarcode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/view_db" />
+
+    <Button
+        android:id="@+id/btnSync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSearch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/sync_db" />
 </RelativeLayout>

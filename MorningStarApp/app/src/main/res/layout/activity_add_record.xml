@@ -20,13 +20,12 @@
     <EditText
         android:id="@+id/description_edittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/enter_desc"
         android:inputType="textMultiLine"
-        android:minLines="5"
-        android:autofillHints="">
-    </EditText>
+        android:minLines="5"></EditText>
 
     <Button
         android:id="@+id/add_record"

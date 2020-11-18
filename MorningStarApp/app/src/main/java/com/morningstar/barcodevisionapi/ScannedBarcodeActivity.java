@@ -63,24 +63,24 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnAction2;
     String intentData = "";
     boolean firstBatch = true;
-    private EditText subjectEditText;
-    private EditText descEditText;
+    private EditText rowEditText;
+    private EditText sectionEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
 
-        //subjectEditText = (EditText) findViewById(R.id.subject_edittext);
-        //descEditText = (EditText) findViewById(R.id.description_edittext);
+        //For grabbing row and section input
+        rowEditText = (EditText) findViewById(R.id.subject_edittext);
+        sectionEditText = (EditText) findViewById(R.id.description_edittext);
 
         dbManager = new DBManager(this);
         dbManager.open();
 
         Cursor container_cursor = dbManager.fetch_containers();
         Cursor batch_cursor = dbManager.fetch_batches();
-        dbManager = new DBManager(this);
-        dbManager.open();
+
 
 
         initViews();
@@ -106,16 +106,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 txtBarcodeValue.setText(intentData);
                 barcode_count++;
             });
-            /*Old code
-            if (intentData.length() > 0) {
-                if (isEmail)
-                    startActivity(new Intent(ScannedBarcodeActivity.this, EmailActivity.class).putExtra("email_address", intentData));
-                else {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
 
-                }
-            }
-            */
 
         });
 
@@ -141,7 +132,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     }
 
     private void initialiseDetectorsAndSources() {
-
+        //Toasts are small circular box text at the bottom of device screen
         //Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
         //Creates Barcode detector
@@ -210,15 +201,28 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
 
-                        //TODO grab date/time of scan
+                        //Grab date/time of scan then convert to string
                         Date currentTime = Calendar.getInstance().getTime();
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
                         String strDate = dateFormat.format(currentTime);
+
                         //TODO get row input
                         //TODO get section input
+                          String row = rowEditText.getText().toString();
+                          String section = sectionEditText.getText().toString();
+                         /*
+                //dbManager.insert(name, desc);
+                //dbManager.insert_container();
+                //dbManager.insert_batch();
+                Intent main = new Intent(AddCountryActivity.this, CountryListActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                        //TODO Create container on each Scan
-                        dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, 0, 0);
+                startActivity(main);
+
+                         */
+
+                        //Create container on each Scan with relevant data
+                        //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
 
                         //TODO add to current batch
                         //TODO Notify user of a repeated barcode and do not add to batch
