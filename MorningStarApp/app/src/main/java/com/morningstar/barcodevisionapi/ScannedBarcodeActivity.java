@@ -208,8 +208,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
                         //TODO get row input
                         //TODO get section input
-                          String row = rowEditText.getText().toString();
-                          String section = sectionEditText.getText().toString();
+                          //String row = rowEditText.getText().toString();
+                         // String section = sectionEditText.getText().toString();
                          /*
                 //dbManager.insert(name, desc);
                 //dbManager.insert_container();
