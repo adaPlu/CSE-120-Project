@@ -5,6 +5,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    // Table Name
+    public static final String TABLE_NAME = "containers";
+    public static final String TABLE_NAME2 = "batch";
+
+    // Table columns
+    public static final String c_BatchID = "_id";
+    public static final String c_Barcode = "subject";
+    public static final String c_Date = "description";
+    public static final String c_Row = "_id";
+    public static final String c_Section = "subject";
+    public static final String b_BatchID = "description";
+    public static final String b_Latitude = "_id";
+    public static final String b_Longitude = "subject";
+    public static final String b_containerCount = "description";
     // Database Information
     static final String DB_NAME = "MorningStar.DB";
 

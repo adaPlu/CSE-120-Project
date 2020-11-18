@@ -1,5 +1,18 @@
 //Ada Pluguez - Morning Star Scanning and Tracking 0.1 11/3/20
 //Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
+/*
+Project work
+1.Create container on each Scan
+	-scan barcode
+	-grab date/time of scan
+	-get row input
+	-get section input
+	-add to current batch
+2. Notify of a repeated barcode scan and do not add to batch
+3. Create Batch on Batch Complete Press
+4.Scan complete send to batch management screen
+
+ */
 package com.morningstar.barcodevisionapi;
 
 
@@ -12,43 +25,59 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
+
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-
+import java.sql.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
     //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
+    private DBManager dbManager;
+    private SimpleCursorAdapter adapter;
     String [] batch = new String[255];
     //ArrayList<String> batch = new ArrayList<String>();
     int barcode_count = 0;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
+    int batchID = 0;
     Button btnAction;
     Button btnAction2;
     String intentData = "";
     boolean firstBatch = true;
-    private DBManager dbManager;
-    private SimpleCursorAdapter adapter;
-
+    private EditText subjectEditText;
+    private EditText descEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
+
+        //subjectEditText = (EditText) findViewById(R.id.subject_edittext);
+        //descEditText = (EditText) findViewById(R.id.description_edittext);
+
         dbManager = new DBManager(this);
         dbManager.open();
+
         Cursor container_cursor = dbManager.fetch_containers();
         Cursor batch_cursor = dbManager.fetch_batches();
+        dbManager = new DBManager(this);
+        dbManager.open();
+
 
         initViews();
     }
@@ -96,7 +125,15 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             //TODO Send user to batch management activity screen
         });
 
-
+        //Scanning Complete Button
+        btnAction2.setOnClickListener(v -> {
+            //Place batch in SQL
+            //Reset batch
+            //batch = new ArrayList<String>();
+            batch = new String[255];
+            barcode_count = 0;
+            //Send user to batch management activity screen
+        });
     }
 
     private void initialiseDetectorsAndSources() {
@@ -157,6 +194,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
 
+
                     //Display barcodes to textview located above batch complete button
                     txtBarcodeValue.post(() -> {
                         //TODO:if scanned barcode not in array or array list? Display code and add to batch
@@ -182,6 +220,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
                         }
                         */
+                        //TODO Create SQL container per barcode
+                        //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue,);
+                        //TODO Add to SQL Batch
                         //Store code in array
                         batch[barcode_count] = barcodes.valueAt(0).displayValue;
                         //intentData = barcodes.valueAt(0).displayValue;
