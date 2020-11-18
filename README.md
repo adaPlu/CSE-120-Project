@@ -12,3 +12,14 @@ Using a camera, read the barcode or label on the side of the container and creat
 Links:
 
 Github: https://github.com/adaPlu/CSE-120-Project
+Current Version 0.2 working on 0.3
+0.1 Basic Code39 Scanning Working.
+0.2 Database Creation Occurs
+0.3 Scanning and database insertion complete (gets user input for section and row, does not scan repeat barcodes)
+0.4 Transfer to batch management screen via scanning complete
+0.5 Update batches via checklist by adding GPS data to batches
+0.6 Build a batch detail screen
+0.7 Build a container detail screen accessed from the batch detail screen by click on a container in the batch list
+0.8 Build a main search button that displays results by one or more search parameters
+0.9 Organize and test all existing Functionality
+1.0 Minimum functionality state DEC 2nd goal
