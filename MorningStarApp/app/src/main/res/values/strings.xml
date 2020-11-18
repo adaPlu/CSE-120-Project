@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Morning Star ScanTrack" </string>
     <string name="take_barcode_picture">SCAN BARCODES IN PICTURE</string>
-    <string name="scan_barcode">SCAN BARCODE</string>
+    <string name="scan_barcode">SCAN BATCHES</string>
     <string name="open_camera">OPEN CAMERA</string>
     <string name="send_email">SEND EMAIL</string>
     <string name="scan_complete">SCANNING COMPLETE</string>
@@ -17,17 +17,22 @@
     <string name="view_batches">View Batches</string>
     <string name="todo">TODO</string>
     <string name="enter_name">Country Name</string>
+    <string name="sync_db">SYNC</string>
+    <string name="view_db">VIEW INVENTORY</string>
 
-    <string name="add_record">Add Record</string>
+    <string name="add_record">Add Row/Section</string>
 
     <string name="btn_update">Update</string>
 
     <string name="btn_delete">Delete</string>
 
-    <string name="empty_list_text">No records found</string>
+    <string name="empty_list_text">No batches found</string>
 
-    <string name="enter_desc">Currency</string>
+    <string name="enter_desc">Row</string>
 
-    <string name="enter_title">Country</string>
+    <string name="enter_title">Section</string>
+
+    <string name="search_db">SEARCH INVENTORY</string>
+
 
 </resources>
