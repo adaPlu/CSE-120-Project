@@ -5,10 +5,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Table Name
-    public static final String TABLE_NAME = "containers";
-    public static final String TABLE_NAME2 = "batch";
-
     // Table columns
     public static final String c_BatchID = "_id";
     public static final String c_Barcode = "subject";
