@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_CONTAINER_TABLE = "create table Container(" +
             "c_BatchID INTEGER," +
             "c_Barcode TEXT," +
-            "c_Date TEXT," +
+            "c_Date DATETIME," +
             "c_Row INTEGER," +
             "c_Section INTEGER);";
 

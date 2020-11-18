@@ -1,18 +1,19 @@
-//Ada Pluguez - Morning Star Scanning and Tracking 0.1 11/3/20
-//Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
-/*
-Project work
-1.Create container on each Scan
-	-scan barcode
-	-grab date/time of scan
-	-get row input
-	-get section input
-	-add to current batch
-2. Notify of a repeated barcode scan and do not add to batch
-3. Create Batch on Batch Complete Press
-4.Scan complete send to batch management screen
-
- */
+/*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
+0.1 Basic Code39 Scanning Working.
+0.2 Database Creation Occurs
+0.3 Scanning and database insertion complete (gets user input for section and row, does not scan repeat barcodes)
+0.4 Transfer to batch management screen via scanning complete
+0.5 Update batches via checklist by adding GPS data to batches
+0.6 Build a batch detail screen
+0.7 Build a container detail screen accessed from the batch detail screen by click on a container in the batch list
+0.8 Build a main search button that displays results by one or more search parameters
+0.9 Organize and test all existing Functionality
+1.0 Minimum functionality state DEC 2nd goal
+References:
+https://www.journaldev.com/18198/qr-code-barcode-scanner-android
+https://www.journaldev.com/9438/android-sqlite-database-example-tutorial#opening-the-android-sqlite-database-file
+https://www.journaldev.com/13325/android-location-api-tracking-gps
+*/
 package com.morningstar.barcodevisionapi;
 
 
@@ -194,44 +195,29 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
 
-
-                    //Display barcodes to textview located above batch complete button
+                    //Display barcodes to the textview located above batch complete button on the left hand side of the screen
                     txtBarcodeValue.post(() -> {
-                        //TODO:if scanned barcode not in array or array list? Display code and add to batch
-                       /*
-                        boolean contains = false;
-                        if(batch.contains(barcodes.valueAt(0).displayValue))
-                            contains = true;
 
-                        for (int i = 0; i < batch.size(); i++) {
-                            if(batch.get(i).equals(barcodes.valueAt(0).displayValue))
-                                contains = true;
-                        }
-
-                        if(!contains){
-                            //Store code in array
-                            batch.add(barcodes.valueAt(0).displayValue);
-                            //intentData = barcodes.valueAt(0).displayValue;
-                            //Display Current batch
-                            intentData = intentData + " " + batch.get(barcode_count) + "\n";
-                            txtBarcodeValue.setText(intentData);
-                            barcode_count++;
-
-
-                        }
-                        */
-                        //TODO Create SQL container per barcode
-                        //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue,);
-                        //TODO Add to SQL Batch
-                        //Store code in array
+                        //Grab last scanned barcode --Store code in array--needed?
                         batch[barcode_count] = barcodes.valueAt(0).displayValue;
                         //intentData = barcodes.valueAt(0).displayValue;
-                        //Display Current batch
+
+                        //Display Current barcodes scanned into the current batch
                         intentData = intentData + " " + batch[barcode_count] + "\n";
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
 
+                        //TODO grab date/time of scan
+                        //TODO get row input
+                        //TODO get section input
 
+                        //TODO Create container on each Scan
+                        //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue,);
+
+                        //TODO add to current batch
+                        //TODO Notify user of a repeated barcode and do not add to batch
+                        //TODO Create new Batch when user clicks Batch Complete
+                        //TODO Scan complete send to batch management screen
                     });
 
                 }
