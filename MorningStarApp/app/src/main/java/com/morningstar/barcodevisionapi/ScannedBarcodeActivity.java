@@ -18,11 +18,17 @@ package com.morningstar.barcodevisionapi;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.InputType;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -62,6 +68,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnAction;
     Button btnAction2;
     String intentData = "";
+    String row = "";
+    String section = "";
     boolean firstBatch = true;
     private EditText rowEditText;
     private EditText sectionEditText;
@@ -189,6 +197,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
 
+
                     //Display barcodes to the textview located above batch complete button on the left hand side of the screen
                     txtBarcodeValue.post(() -> {
 
@@ -201,36 +210,61 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
 
-                        //Grab date/time of scan then convert to string
-                        Date currentTime = Calendar.getInstance().getTime();
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-                        String strDate = dateFormat.format(currentTime);
 
-                        //TODO get row input
-                        //TODO get section input
-                          //String row = rowEditText.getText().toString();
-                         // String section = sectionEditText.getText().toString();
-                         /*
-                //dbManager.insert(name, desc);
-                //dbManager.insert_container();
-                //dbManager.insert_batch();
-                Intent main = new Intent(AddCountryActivity.this, CountryListActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                startActivity(main);
+
+                        /*
+                          String row = rowEditText.getText().toString();
+                          String section = sectionEditText.getText().toString();
+                        Intent main = new Intent(ScannedBarcodeActivity.this, CountryListActivity.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                        startActivity(main);
+
 
                          */
 
                         //Create container on each Scan with relevant data
                         //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
 
-                        //TODO add to current batch
-                        //TODO Notify user of a repeated barcode and do not add to batch
-                        //TODO Create new Batch when user clicks Batch Complete
-                        //TODO Scan complete send to batch management screen
+
+                    });
+                    //Grab date/time of scan then convert to string
+                    Date currentTime = Calendar.getInstance().getTime();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                    String strDate = dateFormat.format(currentTime);
+
+                    //TODO get row/section input
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                    builder.setTitle("Title");
+
+// Set up the input
+                    final EditText input = new EditText(getApplicationContext());
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    builder.setView(input);
+
+// Set up the buttons
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            row = input.getText().toString();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
                     });
 
+                    builder.show();
+                    //TODO add to current batch
+                    //TODO Notify user of a repeated barcode and do not add to batch
+                    //TODO Create new Batch when user clicks Batch Complete
+                    //TODO Scan complete send to batch management screen
                 }
+
             }
         });
     }
