@@ -18,7 +18,6 @@ package com.morningstar.barcodevisionapi;
 
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -32,12 +31,10 @@ import android.text.InputType;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,16 +45,15 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
-import java.util.stream.Stream;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {// implements View.OnClickListener  {
     //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
+    private EditText rowEditText;
+    private EditText sectionEditText;
     private DBManager dbManager;
     private SimpleCursorAdapter adapter;
     String [] batch = new String[255];
@@ -67,14 +63,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     int batchID = 0;
-    Button btnAction;
-    Button btnAction2;
+    Button btnBatchComplete;
+    Button btnScanComplete;
     String intentData = "";
     String row = "";
     String section = "";
     boolean firstBatch = true;
-    private EditText rowEditText;
-    private EditText sectionEditText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +94,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     private void initViews() {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
-        btnAction = findViewById(R.id.btnAction);
-        btnAction2 = findViewById(R.id.btnAction2);
+        btnBatchComplete = findViewById(R.id.btnBatchComplete);
+        btnScanComplete = findViewById(R.id.btnScanningComplete);
 
         //Batch Complete Button
-        btnAction.setOnClickListener(v -> {
+        btnBatchComplete.setOnClickListener(v -> {
             barcode_count = 0;
             //TODO Create SQL Batch and container data for database
             //See add record in addCountryActivity
@@ -121,7 +116,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         });
 
         //Scanning Complete Button
-        btnAction2.setOnClickListener(v -> {
+        btnScanComplete.setOnClickListener(v -> {
             //Place batch in SQL
             //Reset batch
             //batch = new ArrayList<String>();
@@ -182,6 +177,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
+                //Toast Example
                 //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
             //Recieves barcodes displays them, adds each to the same batch, until batch is complete and index is incremented.
@@ -229,20 +225,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                     String strDate = dateFormat.format(currentTime);
 
                     //TODO get row/section input
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                    builder.setTitle("Title");
-
-// Set up the input
-                    final EditText input = new EditText(getApplicationContext());
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
-                    builder.setView(input);
-
-// Set up the buttons
-                    builder.setPositiveButton("OK", (dialog, which) -> row = input.getText().toString());
-                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
-                    builder.show();
                     //TODO add to current batch
                     //TODO Notify user of a repeated barcode and do not add to batch
                     //TODO Create new Batch when user clicks Batch Complete
