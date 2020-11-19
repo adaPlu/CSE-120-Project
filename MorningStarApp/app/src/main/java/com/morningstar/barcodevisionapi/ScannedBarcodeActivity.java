@@ -244,7 +244,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 // Set up the input
                     final EditText input = new EditText(getApplicationContext());
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
                     builder.setView(input);
 
 // Set up the buttons
