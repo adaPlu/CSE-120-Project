@@ -122,16 +122,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Scanning Complete Button
         btnAction2.setOnClickListener(v -> {
-            //TODO Place batch in SQL
-            //Reset batch
-            //batch = new ArrayList<String>();
-            batch = new String[255];
-            barcode_count = 0;
-            //TODO Send user to batch management activity screen
-        });
-
-        //Scanning Complete Button
-        btnAction2.setOnClickListener(v -> {
             //Place batch in SQL
             //Reset batch
             //batch = new ArrayList<String>();
