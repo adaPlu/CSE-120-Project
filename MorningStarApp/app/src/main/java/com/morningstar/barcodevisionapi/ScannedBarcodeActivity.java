@@ -50,26 +50,24 @@ import java.util.Locale;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {// implements View.OnClickListener  {
     //Variables
-    SurfaceView surfaceView;
-    TextView txtBarcodeValue;
     private EditText rowEditText;
     private EditText sectionEditText;
     private DBManager dbManager;
     private SimpleCursorAdapter adapter;
-    String [] batch = new String[255];
-    //ArrayList<String> batch = new ArrayList<String>();
-    int barcode_count = 0;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
-    int batchID = 0;
+    SurfaceView surfaceView;
+    TextView txtBarcodeValue;
     Button btnBatchComplete;
     Button btnScanComplete;
     String intentData = "";
     String row = "";
     String section = "";
-    boolean firstBatch = true;
-
+    int batchID = 0;
+    int barcode_count = 0;
+    String [] batch = new String[255];
+    //ArrayList<String> batch = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +101,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             //TODO Create SQL Batch and container data for database
             //See add record in addCountryActivity
             //Reset Batch to Empty
-            //batch = new ArrayList<String>();
+
             batch = new String[255];
             //Reset current batch display
             txtBarcodeValue.post(() -> {
@@ -119,7 +117,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         btnScanComplete.setOnClickListener(v -> {
             //Place batch in SQL
             //Reset batch
-            //batch = new ArrayList<String>();
             batch = new String[255];
             barcode_count = 0;
             //Send user to batch management activity screen
