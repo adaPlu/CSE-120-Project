@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.SurfaceView;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 public class BatchManagementActivity extends AppCompatActivity{
     //Variables
@@ -83,11 +81,22 @@ public class BatchManagementActivity extends AppCompatActivity{
         checkBox16 = findViewById(R.id.checkBox16);
 
         btnAddGPS.setOnClickListener(v -> {
+        //insert GPS data into checked batches
 
         });
+        //Sends user back to scanning activity
         btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class)));
-        btnEditBatch.setOnClickListener(v -> {
 
+        btnEditBatch.setOnClickListener(v -> {
+            /*Needed functionality:
+            1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
+            Toast example code in ScannedBarcodeActivity
+            2.When one batch is selected load a list of the containers in the batch and their details.
+            3.A button to delete a container
+            4.A button to add a container that sends user to scanning screen to add new containers to that batch.
+            This will likely require cloning the scanning activity and adding code to add the batch in question, making a addToExistingBatch.activity.
+            This is because the original scanning activity is built to start on a new batch.
+            */
         });
 
     }
