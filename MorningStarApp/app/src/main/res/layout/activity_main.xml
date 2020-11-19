@@ -17,34 +17,42 @@
 
     <Button
         android:id="@+id/btnScanBarcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="254dp"
+        android:layout_height="94dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/scan_barcode" />
+        android:layout_marginTop="200dp"
+        android:background="#3B9C3F"
+        android:text="@string/scan_barcode"
+        android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/btnBatchManagement"
+        android:background="#3B9C3F"
+        android:textColor="@android:color/white"
+        android:layout_width="254dp"
+        android:layout_height="94dp"
+        android:layout_below="@+id/btnScanBarcode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/batch_management" />
 
-         <Button
+    <Button
         android:id="@+id/btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnView"
+        android:background="#3B9C3F"
+        android:textColor="@android:color/white"
+        android:layout_width="254dp"
+        android:layout_height="94dp"
+        android:layout_below="@+id/btnBatchManagement"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="@string/search_db" />
 
     <Button
-        android:id="@+id/btnView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnScanBarcode"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="@string/view_db" />
-
-    <Button
         android:id="@+id/btnSync"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="#3B9C3F"
+        android:textColor="@android:color/white"
+        android:layout_width="254dp"
+        android:layout_height="94dp"
         android:layout_below="@+id/btnSearch"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"

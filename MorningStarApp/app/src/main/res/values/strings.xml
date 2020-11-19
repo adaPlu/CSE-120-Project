@@ -19,7 +19,7 @@
     <string name="enter_name">Country Name</string>
     <string name="sync_db">SYNC</string>
     <string name="view_db">VIEW INVENTORY</string>
-
+    <string name="batch_management">MANAGE BATCHES</string>
     <string name="add_record">Add Row/Section</string>
 
     <string name="btn_update">Update</string>
@@ -33,6 +33,10 @@
     <string name="enter_title">Section</string>
 
     <string name="search_db">SEARCH INVENTORY</string>
-
+    <string name="search">SEARCH</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="new_batch">NEW BATCH</string>
+    <string name="edit_batch">EDIT BATCH</string>
+    <string name="add_gps">ADD GPS</string>
 
 </resources>

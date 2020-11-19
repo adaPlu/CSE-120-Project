@@ -10,7 +10,7 @@ import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
 
-    Button btnTakePicture, btnScanBarcode;
+    Button btnBatchManagement, btnScanBarcode;
     private DBManager dbManager;
     private SimpleCursorAdapter adapter;
 
@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private void initViews() {
         btnScanBarcode = findViewById(R.id.btnScanBarcode);
         btnScanBarcode.setOnClickListener(this);
+        btnBatchManagement = findViewById(R.id.btnBatchManagement);
+        btnBatchManagement.setOnClickListener(this);
 
     }
 
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         if(v.getId() == R.id.btnScanBarcode){
             startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
+        }
+        if(v.getId() == R.id.btnBatchManagement){
+            startActivity(new Intent(MainActivity.this, BatchManagementActivity.class));
         }
     }
 }
