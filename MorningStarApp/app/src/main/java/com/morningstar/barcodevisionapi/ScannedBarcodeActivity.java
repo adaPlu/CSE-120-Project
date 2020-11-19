@@ -195,9 +195,17 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         intentData = intentData + " " + batch[barcode_count] + "\n";
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
+                        //Grab date/time of scan then convert to string
+                        Date currentTime = Calendar.getInstance().getTime();
+                        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.US);
+                        String strDate = dateFormat.format(currentTime);
 
-
-
+                        //TODO get row/section input
+                        //TODO add to current batch
+                        //TODO Notify user of a repeated barcode and do not add to batch
+                        //TODO Create new Batch when user clicks Batch Complete
+                        //TODO Scan complete send to batch management screen
 
                         /*
                           String row = rowEditText.getText().toString();
@@ -209,23 +217,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
 
                          */
-
                         //Create container on each Scan with relevant data
                         //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
 
-
                     });
-                    //Grab date/time of scan then convert to string
-                    Date currentTime = Calendar.getInstance().getTime();
-                    //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.US);
-                    String strDate = dateFormat.format(currentTime);
 
-                    //TODO get row/section input
-                    //TODO add to current batch
-                    //TODO Notify user of a repeated barcode and do not add to batch
-                    //TODO Create new Batch when user clicks Batch Complete
-                    //TODO Scan complete send to batch management screen
                 }
 
             }
