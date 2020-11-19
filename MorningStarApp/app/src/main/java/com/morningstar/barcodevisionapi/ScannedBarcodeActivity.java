@@ -1,7 +1,7 @@
 /*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
 0.1 Basic Code39 Scanning Working.
 0.2 Database Creation Occurs
-0.3 gets user input for section
+0.3 gets user input for section, Setup all main screen transitions via buttons.
 0.4 Scanning and database insertion and does not scan repeat barcodes
 0.5 Transfer to batch management screen via scanning
 0.6 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
@@ -50,6 +50,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.stream.Stream;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
@@ -231,7 +233,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     });
                     //Grab date/time of scan then convert to string
                     Date currentTime = Calendar.getInstance().getTime();
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                    //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.US);
                     String strDate = dateFormat.format(currentTime);
 
                     //TODO get row/section input
