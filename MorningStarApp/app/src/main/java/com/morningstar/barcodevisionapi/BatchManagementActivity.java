@@ -85,9 +85,7 @@ public class BatchManagementActivity extends AppCompatActivity{
         btnAddGPS.setOnClickListener(v -> {
 
         });
-        btnNewBatch.setOnClickListener(v -> {
-
-        });
+        btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class)));
         btnEditBatch.setOnClickListener(v -> {
 
         });

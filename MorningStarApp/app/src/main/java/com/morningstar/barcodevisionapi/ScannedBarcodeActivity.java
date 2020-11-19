@@ -54,7 +54,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.stream.Stream;
 
-public class ScannedBarcodeActivity extends AppCompatActivity {
+public class ScannedBarcodeActivity extends AppCompatActivity {// implements View.OnClickListener  {
     //Variables
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
@@ -138,6 +138,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             batch = new String[255];
             barcode_count = 0;
             //Send user to batch management activity screen
+            startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class));
         });
     }
 
@@ -274,4 +275,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         super.onResume();
         initialiseDetectorsAndSources();
     }
+/*
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.btnAction2){
+            startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class));
+        }
+    }
+
+ */
 }
