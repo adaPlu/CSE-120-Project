@@ -88,15 +88,15 @@ public class BatchManagementActivity extends AppCompatActivity{
         btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class)));
 
         btnEditBatch.setOnClickListener(v -> {
-            /*Needed functionality:
-            1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
-            Toast example code in ScannedBarcodeActivity
-            2.When one batch is selected load a list of the containers in the batch and their details.
-            3.A button to delete a container
-            4.A button to add a container that sends user to scanning screen to add new containers to that batch.
-            This will likely require cloning the scanning activity and adding code to add the batch in question, making a addToExistingBatch.activity.
-            This is because the original scanning activity is built to start on a new batch.
-            */
+
+            //TODO 1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
+            //Toast example code in ScannedBarcodeActivity
+            //TODO 2.When one batch is selected load a list of the containers in the batch and their details.
+            //TODO 3.A button to delete a container
+            //TODO 4.A button to add a container that sends user to scanning screen to add new containers to that batch.
+            //This will likely require cloning the scanning activity and adding code to add the batch in question, making a addToExistingBatch.activity.
+            //This is because the original scanning activity is built to start on a new batch.
+
         });
 
     }
