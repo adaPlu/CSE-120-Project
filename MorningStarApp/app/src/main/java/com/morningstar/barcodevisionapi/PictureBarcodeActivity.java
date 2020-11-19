@@ -5,10 +5,13 @@ Only works when barcodes are in close proximity, at the same angle, and in good 
 It also required loading the built in camera app on the android device as such it added extra steps to the workflow.
 The button to access it was removed from the final version for this reason, though the code and xml were
 left here in case anyone wants to develop it further.
-Camera needs
+Camera May Require
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 in AndroidManifest.xml
  */
+//Ada Pluguez - Morning Star Scanning and Tracking 0.1 11/3/20
+//Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +22,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -67,11 +67,12 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
         }
 
         detector = new BarcodeDetector.Builder(getApplicationContext())
-                .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();
 
         if (!detector.isOperational()) {
             txtResultBody.setText(getString(R.string.detector_init));
+            //return;
         }
     }
 
@@ -86,21 +87,23 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
 
         if (v.getId() == R.id.btnOpenCamera) {
-                ActivityCompat.requestPermissions(PictureBarcodeActivity.this, new
-                        String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+
+            ActivityCompat.requestPermissions(PictureBarcodeActivity.this, new
+                    String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+
         }
 
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @androidx.annotation.NonNull String[] permissions, @androidx.annotation.NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode ==REQUEST_CAMERA_PERMISSION) {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    takeBarcodePicture();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Permission Denied!", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                takeBarcodePicture();
+            } else {
+                Toast.makeText(getApplicationContext(), "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -110,8 +113,6 @@ public class PictureBarcodeActivity extends AppCompatActivity implements View.On
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             launchMediaScanIntent();
             try {
-
-
                 Bitmap bitmap = decodeBitmapUri(this, imageUri);
                 if (detector.isOperational() && bitmap != null) {
                     Frame frame = new Frame.Builder().setBitmap(bitmap).build();

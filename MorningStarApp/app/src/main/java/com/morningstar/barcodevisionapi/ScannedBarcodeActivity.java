@@ -1,5 +1,5 @@
 /*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
-0.1 Basic Code39 Scanning Working.
+0.1 Basic Code39 Scanning Working, Realtime GUI Render and Photo Multi-Scan
 0.2 Database Creation Occurs
 0.3 gets user input for section, Setup all main screen transitions via buttons.
 0.4 Scanning and database insertion and does not scan repeat barcodes
