@@ -1,4 +1,11 @@
 /*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
+Description: This activity uses the device camera to scan barcodes in realtime.
+Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
+Then a container is created for insertion into a batch and the sql database.
+When batch complete is pressed the scanned barcode list is cleared and the batch is inserted into the database.
+A new batch is created for continued scanning.
+When scanning complete is pressed the user is sent to the batch management screen to assign gps coordinates.
+Stages:
 0.1 Basic Code39 Scanning Working, Realtime GUI Render and Photo Multi-Scan
 0.2 Database Creation Occurs
 0.3 gets user input for section, Setup all main screen transitions via buttons.
@@ -62,8 +69,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     Button btnBatchComplete;
     Button btnScanComplete;
     String intentData = "";
-    String row = "";
-    String section = "";
+    String row = "0";
+    String section = "0";
     int batchID = 0;
     int barcode_count = 0;
     String [] batch = new String[255];
@@ -214,8 +221,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         startActivity(main);
                         */
                         //TODO add to current batch
+
                         //TODO Notify user of a repeated barcode(use toast) and do not add to batch
+
                         //TODO Create new sql Batch when user clicks Batch Complete
+
                         //TODO Scan complete send to batch management screen
 
                         //Create container on each Scan with relevant data

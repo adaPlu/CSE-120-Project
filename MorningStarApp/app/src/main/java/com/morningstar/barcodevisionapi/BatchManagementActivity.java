@@ -1,5 +1,11 @@
 package com.morningstar.barcodevisionapi;
-/*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20*/
+/*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
+* Description: Allows user to assign gps coordinates to one or more batches via a checkbox list.
+* Clicking edit when a single batch is selected allows the user to see all containers in that batch and the details of those containers.
+* Edit mode details see the EditBatchActivity description.
+* Clicking new sends the user back to the realtime scanning screen.
+* Batches are listed by batch id, GPS?(maybe)
+* */
 import android.content.Intent;
 import android.database.Cursor;
 import androidx.appcompat.app.AppCompatActivity;
