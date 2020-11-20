@@ -1,4 +1,4 @@
-/*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
+/*Ada Pluguez adapluguez@gmail.com- Morning Star Scanning and Tracking V0.2 11/17/20
 Description: This activity uses the device camera to scan barcodes in realtime.
 Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
 Then a container is created for insertion into a batch and the sql database.

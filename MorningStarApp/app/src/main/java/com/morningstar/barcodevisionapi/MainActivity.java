@@ -1,4 +1,5 @@
 package com.morningstar.barcodevisionapi;
+/*Ada Pluguez adapluguez@gmail.com - Morning Star Scanning and Tracking V0.2 11/17/20*/
 
 import android.content.Intent;
 import android.database.Cursor;

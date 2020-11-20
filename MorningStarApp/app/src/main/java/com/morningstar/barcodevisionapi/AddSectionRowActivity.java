@@ -1,3 +1,4 @@
+
 package com.morningstar.barcodevisionapi;
 
 import android.app.Activity;

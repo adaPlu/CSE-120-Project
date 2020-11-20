@@ -1,11 +1,11 @@
 package com.morningstar.barcodevisionapi;
-/*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
+/*Ada Pluguez adapluguez@gmail.com - Morning Star Scanning and Tracking V0.2 11/17/20
 A method for scanning more than one barcode from a photo.
 Only works when barcodes are in close proximity, at the same angle, and in good light.
 It also required loading the built in camera app on the android device as such it added extra steps to the workflow.
 The button to access it was removed from the final version for this reason, though the code and xml were
 left here in case anyone wants to develop it further.
-Camera May Require
+Camera May Require , This was removed due to android10+.
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 in AndroidManifest.xml
  */

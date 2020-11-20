@@ -1,5 +1,7 @@
 package com.morningstar.barcodevisionapi;
-
+//TODO Display list based on search parameters?
+//TODO Display google map based on barcode search and gps coordinates of corresponding batch - See reference below
+//https://developers.google.com/maps/documentation/urls/android-intents
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
