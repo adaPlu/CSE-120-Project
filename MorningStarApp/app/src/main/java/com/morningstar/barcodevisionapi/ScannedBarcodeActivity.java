@@ -1,5 +1,12 @@
 /*Ada Pluguez - Morning Star Scanning and Tracking V0.2 11/17/20
-0.1 Basic Code39 Scanning Working.
+Description: This activity uses the device camera to scan barcodes in realtime.
+Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
+Then a container is created for insertion into a batch and the sql database.
+When batch complete is pressed the scanned barcode list is cleared and the batch is inserted into the database.
+A new batch is created for continued scanning.
+When scanning complete is pressed the user is sent to the batch management screen to assign gps coordinates.
+Stages:
+0.1 Basic Code39 Scanning Working, Realtime GUI Render and Photo Multi-Scan
 0.2 Database Creation Occurs
 0.3 gets user input for section, Setup all main screen transitions via buttons.
 0.4 Scanning and database insertion and does not scan repeat barcodes
@@ -62,8 +69,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     Button btnBatchComplete;
     Button btnScanComplete;
     String intentData = "";
-    String row = "";
-    String section = "";
+    String row = "0";
+    String section = "0";
     int batchID = 0;
     int barcode_count = 0;
     String [] batch = new String[255];
@@ -195,6 +202,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         intentData = intentData + " " + batch[barcode_count] + "\n";
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
+
                         //Grab date/time of scan then convert to string
                         Date currentTime = Calendar.getInstance().getTime();
                         //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -202,23 +210,26 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         String strDate = dateFormat.format(currentTime);
 
                         //TODO get row/section input
-                        //TODO add to current batch
-                        //TODO Notify user of a repeated barcode and do not add to batch
-                        //TODO Create new Batch when user clicks Batch Complete
-                        //TODO Scan complete send to batch management screen
 
+                        //Causes crash on scan
                         /*
-                          String row = rowEditText.getText().toString();
-                          String section = sectionEditText.getText().toString();
+                        String row = rowEditText.getText().toString();
+                        String section = sectionEditText.getText().toString();
                         Intent main = new Intent(ScannedBarcodeActivity.this, CountryListActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         startActivity(main);
+                        */
+                        //TODO add to current batch
 
+                        //TODO Notify user of a repeated barcode(use toast) and do not add to batch
 
-                         */
+                        //TODO Create new sql Batch when user clicks Batch Complete
+
+                        //TODO Scan complete send to batch management screen
+
                         //Create container on each Scan with relevant data
-                        //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
+                        dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
 
                     });
 

@@ -6,7 +6,7 @@
     <string name="send_email">SEND EMAIL</string>
     <string name="scan_complete">SCANNING COMPLETE</string>
     <string name="batch_complete">BATCH COMPLETE</string>
-    <string name="no_barcode"> </string>
+    <string name="no_barcode">No barcode Detected </string>
     <string name="detector_init">Detector initialisation failed.</string>
     <string name="result"> %1$s\n   %2$s\n</string>
     <string name="scan">Scan</string>
@@ -21,22 +21,16 @@
     <string name="view_db">VIEW INVENTORY</string>
     <string name="batch_management">MANAGE BATCHES</string>
     <string name="add_record">Add Row/Section</string>
-
     <string name="btn_update">Update</string>
-
     <string name="btn_delete">Delete</string>
-
     <string name="empty_list_text">No batches found</string>
-
     <string name="enter_desc">Row</string>
-
     <string name="enter_title">Section</string>
-
     <string name="search_db">SEARCH INVENTORY</string>
     <string name="search">SEARCH</string>
     <string name="checkbox">CheckBox</string>
     <string name="new_batch">NEW</string>
     <string name="edit_batch">EDIT</string>
     <string name="add_gps">ADD GPS</string>
-
+    <string name="scanned_barcodes">SCANNED BARCODES:</string>
 </resources>
