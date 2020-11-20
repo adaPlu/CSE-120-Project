@@ -120,7 +120,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
-            //Place batch in SQL
+            //TODO Place batch in SQL
             //Reset batch
             batch = new String[255];
             barcode_count = 0;
@@ -224,7 +224,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
                         //TODO Insert current batch and create new sql Batch when user clicks Batch Complete
 
-                        //TODO Scan complete send to batch management screen
+
 
                         //Create container on each Scan with relevant data
                         dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
