@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             startActivity(new Intent(MainActivity.this, BatchManagementActivity.class));
         }
         if(v.getId() == R.id.btnSearch){
-            //startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            startActivity(new Intent(MainActivity.this, SearchActivity.class));
         }
         if(v.getId() == R.id.btnSync){
             //startActivity(new Intent(MainActivity.this, SyncActivity.class));

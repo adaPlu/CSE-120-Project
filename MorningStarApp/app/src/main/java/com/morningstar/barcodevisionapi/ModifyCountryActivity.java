@@ -9,6 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Objects;
+
 public class ModifyCountryActivity extends Activity implements OnClickListener {
 
     private EditText titleText;
@@ -41,7 +43,7 @@ public class ModifyCountryActivity extends Activity implements OnClickListener {
         String name = intent.getStringExtra("title");
         String desc = intent.getStringExtra("desc");
 
-        _id = Long.parseLong(id);
+        _id = Long.parseLong(Objects.requireNonNull(id));
 
         titleText.setText(name);
         descText.setText(desc);
@@ -68,7 +70,7 @@ public class ModifyCountryActivity extends Activity implements OnClickListener {
     }
 
     public void returnHome() {
-        Intent home_intent = new Intent(getApplicationContext(), SearchListActivity.class)
+        Intent home_intent = new Intent(getApplicationContext(), SearchActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(home_intent);
     }
