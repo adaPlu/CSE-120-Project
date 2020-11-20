@@ -87,7 +87,9 @@ public class BatchManagementActivity extends AppCompatActivity{
         checkBox16 = findViewById(R.id.checkBox16);
 
         btnAddGPS.setOnClickListener(v -> {
-        //insert GPS data into checked batches
+            //TODO Grab current GPS
+            // TODO Update checked batches with GPS data via SQLite
+
 
         });
         //Sends user back to scanning activity
