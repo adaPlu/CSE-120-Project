@@ -25,13 +25,14 @@
         android:ems="10"
         android:hint="@string/enter_desc"
         android:inputType="textMultiLine"
-        android:minLines="5"></EditText>
+        android:minLines="5">
+    </EditText>
 
     <Button
-        android:id="@+id/add_record"
+        android:id="@+id/add_row_section"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/add_record" />
+        android:text="@string/add_row_section" />
 
 </LinearLayout>

@@ -30,11 +30,9 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.InputType;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -212,14 +210,14 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         //TODO get row/section input
 
                         //Causes crash on scan
-                        /*
+
                         String row = rowEditText.getText().toString();
                         String section = sectionEditText.getText().toString();
-                        Intent main = new Intent(ScannedBarcodeActivity.this, CountryListActivity.class)
+                        Intent main = new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         startActivity(main);
-                        */
+
                         //TODO add to current batch
 
                         //TODO Notify user of a repeated barcode(use toast) and do not add to batch

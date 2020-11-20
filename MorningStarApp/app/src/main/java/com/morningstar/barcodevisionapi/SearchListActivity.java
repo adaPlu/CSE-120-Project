@@ -7,12 +7,11 @@ import android.widget.SimpleCursorAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CountryListActivity extends AppCompatActivity {
+public class SearchListActivity extends AppCompatActivity {
 
     private DBManager dbManager;
 
@@ -73,9 +72,9 @@ public class CountryListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.add_record) {
+        if (id == R.id.add_row_section) {
 
-            Intent add_mem = new Intent(this, AddCountryActivity.class);
+            Intent add_mem = new Intent(this, AddSectionRowActivity.class);
             startActivity(add_mem);
 
         }
