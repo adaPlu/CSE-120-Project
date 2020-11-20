@@ -23,10 +23,7 @@ public class BatchManagementActivity extends AppCompatActivity{
     //Variables
     private DBManager dbManager;
     private SimpleCursorAdapter adapter;
-    String row = "";
-    String section = "";
-    private EditText rowEditText;
-    private EditText sectionEditText;
+    //Widgets
     Button btnAddGPS;
     Button btnNewBatch;
     Button btnEditBatch;
@@ -47,24 +44,21 @@ public class BatchManagementActivity extends AppCompatActivity{
     CheckBox checkBox15;
     CheckBox checkBox16;
 
+    //Same as main
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch_management);
 
-        //For grabbing row and section input
-        rowEditText = (EditText) findViewById(R.id.subject_edittext);
-        sectionEditText = (EditText) findViewById(R.id.description_edittext);
-
+        //Connect to or create DB
         dbManager = new DBManager(this);
         dbManager.open();
-
+        //DB cursors for access?
         Cursor container_cursor = dbManager.fetch_containers();
         Cursor batch_cursor = dbManager.fetch_batches();
 
-
-
         initViews();
     }
+    //Init view of screen widgets
     private void initViews() {
         btnAddGPS = findViewById(R.id.btnAddGPS);
         btnNewBatch = findViewById(R.id.btnNewBatch);
@@ -86,6 +80,7 @@ public class BatchManagementActivity extends AppCompatActivity{
         checkBox15 = findViewById(R.id.checkBox15);
         checkBox16 = findViewById(R.id.checkBox16);
 
+        //Button Functionality
         btnAddGPS.setOnClickListener(v -> {
             //TODO Grab current GPS
             // TODO Update checked batches with GPS data via SQLite
@@ -98,7 +93,8 @@ public class BatchManagementActivity extends AppCompatActivity{
         btnEditBatch.setOnClickListener(v -> {
 
             //TODO 1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
-            //Toast example code in ScannedBarcodeActivity
+            //Toast Example:
+            //Toast.makeText(getApplicationContext(), "Barcode Already in Batch", Toast.LENGTH_SHORT).show();
             //TODO 2.When one batch is selected load a list of the containers in the batch and their details.
             //TODO 3.A button to delete a container
             //TODO 4.A button to add a container that sends user to scanning screen to add new containers to that batch.
