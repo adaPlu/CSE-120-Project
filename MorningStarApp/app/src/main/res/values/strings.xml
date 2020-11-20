@@ -20,7 +20,7 @@
     <string name="sync_db">SYNC</string>
     <string name="view_db">VIEW INVENTORY</string>
     <string name="batch_management">MANAGE BATCHES</string>
-    <string name="add_record">Add Row/Section</string>
+    <string name="add_row_section">Add Row/Section</string>
     <string name="btn_update">Update</string>
     <string name="btn_delete">Delete</string>
     <string name="empty_list_text">No batches found</string>
@@ -33,4 +33,5 @@
     <string name="edit_batch">EDIT</string>
     <string name="add_gps">ADD GPS</string>
     <string name="scanned_barcodes">SCANNED BARCODES:</string>
+    <string name="add_sectionrow">Add Section/Row</string>
 </resources>
