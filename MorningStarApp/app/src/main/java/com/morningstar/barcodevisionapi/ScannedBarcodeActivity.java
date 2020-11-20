@@ -210,19 +210,19 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         //TODO get row/section input
 
                         //Causes crash on scan
-
+                        /*
                         String row = rowEditText.getText().toString();
                         String section = sectionEditText.getText().toString();
                         Intent main = new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         startActivity(main);
-
+                        */
                         //TODO add to current batch
 
                         //TODO Notify user of a repeated barcode(use toast) and do not add to batch
 
-                        //TODO Create new sql Batch when user clicks Batch Complete
+                        //TODO Insert current batch and create new sql Batch when user clicks Batch Complete
 
                         //TODO Scan complete send to batch management screen
 
