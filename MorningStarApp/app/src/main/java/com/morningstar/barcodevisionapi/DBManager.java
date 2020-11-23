@@ -37,8 +37,11 @@ public class DBManager {
         contentValue.put("c_Section", section);
         database.insert("Container", null, contentValue);
     }
-    public void insert_batch(double latitude, double longitude, int count) {
+    public void insert_batch(String batchID, int count) {
+        double latitude = 0;
+        double longitude = 0;
         ContentValues contentValue = new ContentValues();
+        contentValue.put("b_batchID", batchID);
         contentValue.put("b_Latitude", latitude);
         contentValue.put("b_longitude", longitude);
         contentValue.put("b_containerCount", count);
@@ -91,6 +94,7 @@ public class DBManager {
         return cursor;
     }
 
+    //Update Functions
     public int update_container(int batchID, String barcode, String date, int row, int section) {
         ContentValues contentValue = new ContentValues();
         contentValue.put("c_BatchID", batchID);
@@ -105,6 +109,18 @@ public class DBManager {
         contentValue.put("b_Latitude", latitude);
         contentValue.put("b_longitude", longitude);
         contentValue.put("b_containerCount", containerCount);
+        return database.update("Batch", contentValue, "b_BatchID = " + batchID, null);
+    }
+    public int update_batchCount(String batchID, int containerCount) {
+        ContentValues contentValue = new ContentValues();
+        contentValue.put("b_containerCount", containerCount);
+        return database.update("Batch", contentValue, "b_BatchID = " + batchID, null);
+    }
+
+    public int update_batchGPS(String batchID, double latitude, double longitude) {
+        ContentValues contentValue = new ContentValues();
+        contentValue.put("b_Latitude", latitude);
+        contentValue.put("b_longitude", longitude);
         return database.update("Batch", contentValue, "b_BatchID = " + batchID, null);
     }
 

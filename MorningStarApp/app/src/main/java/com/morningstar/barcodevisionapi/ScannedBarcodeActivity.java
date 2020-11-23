@@ -106,11 +106,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Batch Complete Button
         btnBatchComplete.setOnClickListener(v -> {
+            //TODO Create SQL Batch  and insert
+            dbManager.insert_batch(String.valueOf(batchID), barcode_count);
+            //Reset barcode count
             barcode_count = 0;
+            //Increment batchID
             batchID++;
-            //TODO Create SQL Batch and container data for database
-            //See add record in addCountryActivity
-            //Reset Batch to Empty
+
 
             batch = new String[255];
             //Reset current batch display
@@ -126,6 +128,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
             //TODO Place batch in SQL
+            dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             //Reset batch
             batch = new String[255];
             barcode_count = 0;
@@ -247,45 +250,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         //TODO get row/section input
                         row = getIntent().getStringExtra("ROW");
                         section = getIntent().getStringExtra("SECTION");
-                        /*Causes crash on scan
-
-                        String row = rowEditText.getText().toString();
-                        String section = sectionEditText.getText().toString();
-                        Intent main = new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(main);
-
-                        AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
-
-                        alert.setTitle("Title");
-                        alert.setMessage("Message");
-
-                        // Set an EditText view to get user input
-                        final EditText input = new EditText(getApplicationContext());
-                        alert.setView(input);
-
-                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                String value = input.getText().toString();
-                                // Do something with value!
-                            }
-                        });
-
-                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                // Canceled.
-                            }
-                        });
-
-                        alert.show();
-                        */
 
 
-                        //TODO add to current batch
-                        dbManager.insert_batch(0, 0, barcode_count);
                         //TODO Notify user of a repeated barcode(use toast) and do not add to batch
-
-                        //TODO Insert current batch and create new sql Batch when user clicks Batch Complete
 
 
 
