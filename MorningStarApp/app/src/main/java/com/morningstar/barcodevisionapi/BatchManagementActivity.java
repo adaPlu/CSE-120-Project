@@ -11,6 +11,7 @@ import android.database.Cursor;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -84,6 +85,10 @@ public class BatchManagementActivity extends AppCompatActivity{
         btnAddGPS.setOnClickListener(v -> {
             //TODO Grab current GPS
             // TODO Update checked batches with GPS data via SQLite
+            for(int i = 0; i < 16; i++){
+                onCheckboxClicked(this.findViewById(R.id.checkBox));
+
+            }
 
 
         });
@@ -102,6 +107,32 @@ public class BatchManagementActivity extends AppCompatActivity{
             //This is because the original scanning activity is built to start on a new batch.
 
         });
+
+
+
+    }
+
+    //CheckBoxs
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        /*
+        switch(view.getId()) {
+            case R.id.checkBox:
+                if (checked)
+
+            else
+                break;
+            case R.id.checkBox2:
+                if (checked)
+
+            else
+
+                break;
+        }
+        */
 
     }
 

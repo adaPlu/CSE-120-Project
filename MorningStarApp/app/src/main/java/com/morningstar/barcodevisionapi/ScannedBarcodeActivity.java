@@ -25,11 +25,13 @@ package com.morningstar.barcodevisionapi;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -66,6 +68,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     TextView txtBarcodeValue;
     Button btnBatchComplete;
     Button btnScanComplete;
+    Button btnRow;
     String intentData = "";
     String row = "0";
     String section = "0";
@@ -99,10 +102,12 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         surfaceView = findViewById(R.id.surfaceView);
         btnBatchComplete = findViewById(R.id.btnBatchComplete);
         btnScanComplete = findViewById(R.id.btnScanningComplete);
+        btnRow = findViewById(R.id.btnRow);
 
         //Batch Complete Button
         btnBatchComplete.setOnClickListener(v -> {
             barcode_count = 0;
+            batchID++;
             //TODO Create SQL Batch and container data for database
             //See add record in addCountryActivity
             //Reset Batch to Empty
@@ -124,9 +129,15 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             //Reset batch
             batch = new String[255];
             barcode_count = 0;
+            batchID = 0;
             //Send user to batch management activity screen
             startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class));
         });
+        btnRow.setOnClickListener(v -> {
+            //set row and section activity? or dialog popup of somekind?
+            startActivity(new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class));
+        });
+
     }
 
     private void initialiseDetectorsAndSources() {
@@ -182,11 +193,37 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                 //Toast Example
                 //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
+
             //Recieves barcodes displays them, adds each to the same batch, until batch is complete and index is incremented.
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+                /*
+                AlertDialog.Builder alert = new AlertDialog.Builder(ScannedBarcodeActivity.this);
+
+                alert.setTitle("Title");
+                alert.setMessage("Message");
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(ScannedBarcodeActivity.this);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
+                        // Do something with value!
+                    }
+                });
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+                */
                 if (barcodes.size() != 0) {
+
 
 
                     //Display barcodes to the textview located above batch complete button on the left hand side of the screen
@@ -208,18 +245,44 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         String strDate = dateFormat.format(currentTime);
 
                         //TODO get row/section input
-
-                        //Causes crash on scan
+                        row = getIntent().getStringExtra("ROW");
+                        section = getIntent().getStringExtra("SECTION");
+                        /*Causes crash on scan
 
                         String row = rowEditText.getText().toString();
                         String section = sectionEditText.getText().toString();
                         Intent main = new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                         startActivity(main);
 
-                        //TODO add to current batch
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
 
+                        alert.setTitle("Title");
+                        alert.setMessage("Message");
+
+                        // Set an EditText view to get user input
+                        final EditText input = new EditText(getApplicationContext());
+                        alert.setView(input);
+
+                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String value = input.getText().toString();
+                                // Do something with value!
+                            }
+                        });
+
+                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Canceled.
+                            }
+                        });
+
+                        alert.show();
+                        */
+
+
+                        //TODO add to current batch
+                        dbManager.insert_batch(0, 0, barcode_count);
                         //TODO Notify user of a repeated barcode(use toast) and do not add to batch
 
                         //TODO Insert current batch and create new sql Batch when user clicks Batch Complete

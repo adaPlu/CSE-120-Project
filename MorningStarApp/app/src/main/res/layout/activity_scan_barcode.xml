@@ -7,8 +7,8 @@
 
     <SurfaceView
         android:id="@+id/surfaceView"
-        android:layout_width="381dp"
-        android:layout_height="620dp"
+        android:layout_width="395dp"
+        android:layout_height="638dp"
         android:layout_above="@+id/btnBatchComplete"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
@@ -18,15 +18,15 @@
 
     <TextView
         android:id="@+id/txtBarcodeValue"
-        android:layout_width="152dp"
-        android:layout_height="615dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/btnBatchComplete"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
 
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="62dp"
         android:layout_marginEnd="243dp"
 
         android:layout_marginBottom="6dp"
@@ -43,8 +43,16 @@
 
     <Button
         android:id="@+id/btnScanningComplete"
-        android:layout_width="387dp"
-        android:layout_height="64dp"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
         android:text="@string/scan_complete" />
+
+    <Button
+        android:id="@+id/btnRow"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:text="@string/row" />
 
 </RelativeLayout>

@@ -42,12 +42,10 @@ public class AddSectionRowActivity extends Activity implements OnClickListener {
                 final String row = rowEditText.getText().toString();
                 final String section = sectionEditText.getText().toString();
 
-                //dbManager.insert(name, desc);
-                //dbManager.insert_container();
-                //dbManager.insert_batch();
                 Intent main = new Intent(AddSectionRowActivity.this, ScannedBarcodeActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+                main.putExtra("ROW", row);
+                main.putExtra("SECTION", section);
                 startActivity(main);
         }
     }
