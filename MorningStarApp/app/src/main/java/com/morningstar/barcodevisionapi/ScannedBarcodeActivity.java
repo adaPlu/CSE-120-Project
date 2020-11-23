@@ -69,6 +69,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     Button btnBatchComplete;
     Button btnScanComplete;
     Button btnRow;
+    Button btnExit;
     String intentData = "";
     String row = "0";
     String section = "0";
@@ -103,10 +104,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         btnBatchComplete = findViewById(R.id.btnBatchComplete);
         btnScanComplete = findViewById(R.id.btnScanningComplete);
         btnRow = findViewById(R.id.btnRow);
+        btnExit = findViewById(R.id.btnExit);
 
         //Batch Complete Button
         btnBatchComplete.setOnClickListener(v -> {
-            //TODO Create SQL Batch  and insert
+            //Insert SQL batch
             dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             //Reset barcode count
             barcode_count = 0;
@@ -127,7 +129,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
-            //TODO Place batch in SQL
             dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             //Reset batch
             batch = new String[255];
@@ -137,12 +138,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class));
         });
         btnRow.setOnClickListener(v -> {
-            //set row and section activity? or dialog popup of somekind?
+            //set row and section activity? or dialog popup of somekind? this is a placer holder for a better dialog popup
             startActivity(new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class));
         });
-
+        btnExit.setOnClickListener(v -> {
+            startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
+        });
     }
-
     private void initialiseDetectorsAndSources() {
         //Toasts are small circular box text at the bottom of device screen
         //Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
