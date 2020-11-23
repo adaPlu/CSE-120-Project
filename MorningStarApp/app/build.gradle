@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.morningStar.barcodevisionapi"
+        applicationId "com.morningstar.barcodevisionapi"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
