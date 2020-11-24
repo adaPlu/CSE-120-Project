@@ -42,6 +42,7 @@ import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -205,6 +206,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 /*
+                //TODO get row/section input -Attempt at a dialog popup rather than an activity- Crashes?. Need better examples...
                 AlertDialog.Builder alert = new AlertDialog.Builder(ScannedBarcodeActivity.this);
 
                 alert.setTitle("Title");
@@ -230,8 +232,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                 */
                 if (barcodes.size() != 0) {
 
-
-
+                    //TODO Notify user of a repeated barcode(use toast) and do not add to batch
+                    Toast.makeText(getApplicationContext(), "Barcode Already Scanned to Current Batch.", Toast.LENGTH_SHORT).show();
                     //Display barcodes to the textview located above batch complete button on the left hand side of the screen
                     txtBarcodeValue.post(() -> {
 
@@ -250,14 +252,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.US);
                         String strDate = dateFormat.format(currentTime);
 
-                        //TODO get row/section input
+                        //TODO get row/section input -- Change to a dialog popup rather than an activity- Would improve workflow.
                         row = getIntent().getStringExtra("ROW");
                         section = getIntent().getStringExtra("SECTION");
-
-
-                        //TODO Notify user of a repeated barcode(use toast) and do not add to batch
-
-
 
                         //Create container on each Scan with relevant data
                         dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
