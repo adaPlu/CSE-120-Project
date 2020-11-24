@@ -142,6 +142,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             startActivity(new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class));
         });
         btnExit.setOnClickListener(v -> {
+            dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
     }
