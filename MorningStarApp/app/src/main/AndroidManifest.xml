@@ -6,6 +6,7 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -42,6 +43,7 @@
         <activity android:name="com.morningstar.barcodevisionapi.PictureBarcodeActivity" />
         <activity android:name="com.morningstar.barcodevisionapi.ScannedBarcodeActivity" />
         <activity android:name="com.morningstar.barcodevisionapi.BatchManagementActivity" />
+        <activity android:name="com.morningstar.barcodevisionapi.BarcodeLocationActivity" />
 
 
         <meta-data

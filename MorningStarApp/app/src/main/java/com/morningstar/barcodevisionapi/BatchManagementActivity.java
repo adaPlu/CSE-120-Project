@@ -84,7 +84,7 @@ public class BatchManagementActivity extends AppCompatActivity{
         btnAddGPS.setOnClickListener(v -> {
             //TODO Grab current GPS
             // TODO Update checked batches with GPS data via SQLite
-
+            startActivity(new Intent(BatchManagementActivity.this, BarcodeLocationActivity.class));
 
         });
         //Sends user back to scanning activity
