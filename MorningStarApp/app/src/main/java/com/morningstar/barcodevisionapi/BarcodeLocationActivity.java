@@ -64,7 +64,7 @@ public class BarcodeLocationActivity extends AppCompatActivity {
                 Location currentLocation = currentLocationResult.getResult();
                 double latitude = currentLocation.getLatitude();
                 double longitude = currentLocation.getLongitude();
-                Intent main = new Intent(BarcodeLocationActivity.this, ScannedBarcodeActivity.class)
+                Intent main = new Intent(BarcodeLocationActivity.this, BatchManagementActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 main.putExtra("LAT", latitude);
                 main.putExtra("LONG", longitude);
