@@ -49,7 +49,7 @@ public class BatchManagementActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch_management);
-
+        //Object retrival getIntent().getSerializableExtra("BATCHES");
         //Connect to or create DB
         dbManager = new DBManager(this);
         dbManager.open();

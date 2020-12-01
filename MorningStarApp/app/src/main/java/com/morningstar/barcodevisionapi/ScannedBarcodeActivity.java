@@ -76,17 +76,34 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     String intentData = "";
     String row = "0";
     String section = "0";
+
     int batchID = 0;
     int barcode_count = 0;
-    ArrayList<Container> containers = new ArrayList<Container>();
+    //ArrayList<Container> containers = new ArrayList<Container>();
     ArrayList<Batch> batches = new ArrayList<Batch>();
-    String[] barcodeString = new String[255];
+    ArrayList<String> barcodeString = new ArrayList<String>();
+    //String[] barcodeString = new String[255];
     Batch currentBatch = new Batch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
+
+        //Get Section and row from activity with out crash on null
+        if(getIntent()!=null && getIntent().getExtras()!=null){
+            Bundle bundle = getIntent().getExtras();
+            if(!bundle.getString("ROW").equals(null)){
+                row = bundle.getString("ROW");
+            }
+            if(!bundle.getString("SECTION").equals(null)){
+                section = bundle.getString("SECTION");
+            }
+        }
+
+        //row = getIntent().getStringExtra("ROW");
+        //section = getIntent().getStringExtra("SECTION");
+
 
         //For grabbing row and section input
         //rowEditText = (EditText) findViewById(R.id.subject_edittext);
@@ -120,12 +137,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             //Increment batchID
             batchID++;
             //reset barcodes
-             barcodeString = new String[255];
+            barcodeString = new ArrayList<String>();
+            String row = "0";
+            String section = "0";
             //Reset current batch display
             txtBarcodeValue.post(() -> {
                 intentData = "";
                 txtBarcodeValue.setText(intentData);
-                barcode_count++;
             });
 
 
@@ -261,13 +279,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                     //Toast.makeText(getApplicationContext(), "Barcode Already Scanned to Current Batch.", Toast.LENGTH_SHORT).show();
                     //Display barcodes to the textview located above batch complete button on the left hand side of the screen
                     txtBarcodeValue.post(() -> {
-
+                        //Add sound on scan?
                         //Grab last scanned barcode --Store code in array--needed?
-                        barcodeString[barcode_count] = barcodes.valueAt(0).displayValue;
+                        barcodeString.add(barcodes.valueAt(0).displayValue);
                         //intentData = barcodes.valueAt(0).displayValue;
 
                         //Display Current barcodes scanned into the current batch
-                        intentData = intentData + " " + barcodeString[barcode_count] + "\n";
+                        intentData = intentData + " " + barcodeString.get(barcode_count) + "\n";
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
 
@@ -278,8 +296,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         String strDate = dateFormat.format(currentTime);
 
                         //TODO get row/section input -- Change to a dialog popup rather than an activity- Would improve workflow.
-                        row = getIntent().getStringExtra("ROW");
-                        section = getIntent().getStringExtra("SECTION");
+                        //row = getIntent().getStringExtra("ROW");
+                       // section = getIntent().getStringExtra("SECTION");
 
                         //Create container on each Scan then insert into database as these do not have GPS only batchIDs
                         dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
@@ -308,6 +326,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     protected void onResume() {
         super.onResume();
         initialiseDetectorsAndSources();
+    }
+
+    public interface BarcodeReaderListener {
     }
 /*
     @Override

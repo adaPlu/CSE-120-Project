@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     public void onClick(View v) {
         //Launch correct activity based on click, activate screen transitions
         if(v.getId() == R.id.btnScanBarcode){
-            startActivity(new Intent(MainActivity.this, AddSectionRowActivity.class));
+            startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
         }
         if(v.getId() == R.id.btnBatchManagement){
             startActivity(new Intent(MainActivity.this, BatchManagementActivity.class));
