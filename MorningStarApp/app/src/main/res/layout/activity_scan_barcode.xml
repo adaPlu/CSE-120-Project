@@ -66,5 +66,17 @@
         android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:text="@string/row" />
-
+    <RelativeLayout
+        android:id="@+id/centerLayout"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/border_green"
+        android:layout_marginTop="1dp">
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/red"/>
+    </RelativeLayout>
 </RelativeLayout>

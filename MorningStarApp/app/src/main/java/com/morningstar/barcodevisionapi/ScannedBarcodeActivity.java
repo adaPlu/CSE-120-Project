@@ -36,6 +36,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -78,7 +81,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     ArrayList<Container> containers = new ArrayList<Container>();
     ArrayList<Batch> batches = new ArrayList<Batch>();
     String[] barcodeString = new String[255];
-    Batch currentBatch;
+    Batch currentBatch = new Batch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,14 +133,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
-           //dbManager.insert_batch(String.valueOf(batchID), barcode_count);
-            //Reset Containers List
-            //ArrayList<Container> containers = new ArrayList<Container>();
-            //reset barcodes
-            barcodeString = new String[255];
-            barcode_count = 0;
-            batchID = 0;
-            //Send user and All current Batches to batch management activity screen
+            //Insert current batches and pass to management for GPS update?
+            for(int i = 0; i < batches.size(); i++){
+                dbManager.insert_batch(String.valueOf(batches.get(i).getBatchID()), batches.get(i).getNumOfContainers());
+            }
             Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class);
             main.putExtra("BATCHES", batches);
             startActivity(main);
@@ -150,6 +149,28 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             //dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
+    }
+    private void setAnimation() {
+        final View line = (View) findViewById(R.id.line);
+        final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.move);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                line.startAnimation(anim);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        line.startAnimation(anim);
     }
     private void initialiseDetectorsAndSources() {
         //Toasts are small circular box text at the bottom of device screen
@@ -264,13 +285,16 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
                         //Container currentContainer = new Container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
                         currentBatch.setBatchID(batchID);
-                        currentBatch.setNumOfContainers(currentBatch.getNumOfContainers() + 1);
+                        int temp = currentBatch.getNumOfContainers() + 1;
+                        currentBatch.setNumOfContainers(temp);
                     });
 
                 }
 
             }
         });
+        setAnimation();
+
     }
 
 

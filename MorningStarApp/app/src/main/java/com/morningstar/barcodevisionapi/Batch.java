@@ -11,7 +11,7 @@ public class Batch {
 
     //Default Constructor
     public Batch(){
-        batchID =0;
+        batchID = 0;
         numOfContainers =0;
         latitude = 0.0;
         longitude = 0.0;
