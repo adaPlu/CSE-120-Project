@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -74,8 +75,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     String section = "0";
     int batchID = 0;
     int barcode_count = 0;
-    String [] batch = new String[255];
-    //ArrayList<String> batch = new ArrayList<String>();
+    ArrayList<Container> containers = new ArrayList<Container>();
+    ArrayList<Batch> batches = new ArrayList<Batch>();
+    String[] barcodeString = new String[255];
+    Batch currentBatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,16 +86,14 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         setContentView(R.layout.activity_scan_barcode);
 
         //For grabbing row and section input
-        rowEditText = (EditText) findViewById(R.id.subject_edittext);
-        sectionEditText = (EditText) findViewById(R.id.description_edittext);
+        //rowEditText = (EditText) findViewById(R.id.subject_edittext);
+        //sectionEditText = (EditText) findViewById(R.id.description_edittext);
 
         dbManager = new DBManager(this);
         dbManager.open();
 
-        Cursor container_cursor = dbManager.fetch_containers();
-        Cursor batch_cursor = dbManager.fetch_batches();
-
-
+        //Cursor container_cursor = dbManager.fetch_containers();
+        //Cursor batch_cursor = dbManager.fetch_batches();
 
         initViews();
     }
@@ -107,15 +108,16 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Batch Complete Button
         btnBatchComplete.setOnClickListener(v -> {
-            //Insert SQL batch
-            dbManager.insert_batch(String.valueOf(batchID), barcode_count);
+            //Add current batch to arraylist for passing to batch management
+            batches.add(currentBatch);
+            //Reset current batch
+            currentBatch = new Batch();
             //Reset barcode count
             barcode_count = 0;
             //Increment batchID
             batchID++;
-
-
-            batch = new String[255];
+            //reset barcodes
+             barcodeString = new String[255];
             //Reset current batch display
             txtBarcodeValue.post(() -> {
                 intentData = "";
@@ -128,20 +130,24 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
-            dbManager.insert_batch(String.valueOf(batchID), barcode_count);
-            //Reset batch
-            batch = new String[255];
+           //dbManager.insert_batch(String.valueOf(batchID), barcode_count);
+            //Reset Containers List
+            //ArrayList<Container> containers = new ArrayList<Container>();
+            //reset barcodes
+            barcodeString = new String[255];
             barcode_count = 0;
             batchID = 0;
-            //Send user to batch management activity screen
-            startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class));
+            //Send user and All current Batches to batch management activity screen
+            Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class);
+            main.putExtra("BATCHES", batches);
+            startActivity(main);
         });
         btnRow.setOnClickListener(v -> {
             //set row and section activity? or dialog popup of somekind? this is a placer holder for a better dialog popup
             startActivity(new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class));
         });
         btnExit.setOnClickListener(v -> {
-            dbManager.insert_batch(String.valueOf(batchID), barcode_count);
+            //dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
     }
@@ -230,17 +236,17 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                 */
                 if (barcodes.size() != 0) {
 
-                    //TODO Notify user of a repeated barcode(use toast) and do not add to batch
-                    Toast.makeText(getApplicationContext(), "Barcode Already Scanned to Current Batch.", Toast.LENGTH_SHORT).show();
+                    //TODO Notify user of a repeated barcode(use toast) and  do not add to batch
+                    //Toast.makeText(getApplicationContext(), "Barcode Already Scanned to Current Batch.", Toast.LENGTH_SHORT).show();
                     //Display barcodes to the textview located above batch complete button on the left hand side of the screen
                     txtBarcodeValue.post(() -> {
 
                         //Grab last scanned barcode --Store code in array--needed?
-                        batch[barcode_count] = barcodes.valueAt(0).displayValue;
+                        barcodeString[barcode_count] = barcodes.valueAt(0).displayValue;
                         //intentData = barcodes.valueAt(0).displayValue;
 
                         //Display Current barcodes scanned into the current batch
-                        intentData = intentData + " " + batch[barcode_count] + "\n";
+                        intentData = intentData + " " + barcodeString[barcode_count] + "\n";
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
 
@@ -254,9 +260,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         row = getIntent().getStringExtra("ROW");
                         section = getIntent().getStringExtra("SECTION");
 
-                        //Create container on each Scan with relevant data
+                        //Create container on each Scan then insert into database as these do not have GPS only batchIDs
                         dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
-
+                        //Container currentContainer = new Container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
+                        currentBatch.setBatchID(batchID);
+                        currentBatch.setNumOfContainers(currentBatch.getNumOfContainers() + 1);
                     });
 
                 }
