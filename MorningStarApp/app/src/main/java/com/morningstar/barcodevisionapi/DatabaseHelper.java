@@ -24,13 +24,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Creating table query
     private static final String CREATE_CONTAINER_TABLE = "create table Container(" +
             "c_BatchID INTEGER," +
-            "c_Barcode TEXT," +
+            "c_Barcode_id TEXT," +
             "c_Date TEXT," +
             "c_Row INTEGER," +
             "c_Section INTEGER);";
 
     private static final String CREATE_BATCH_TABLE = "create table Batch(" +
-            "b_BatchID INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "b_Batch_id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "b_Latitude REAL," +
             "b_Longitude REAL," +
             "b_containerCount INTEGER);";
