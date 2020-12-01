@@ -91,6 +91,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         setContentView(R.layout.activity_scan_barcode);
 
         //Get Section and row from activity with out crash on null
+        /*
         if(getIntent()!=null && getIntent().getExtras()!=null){
             Bundle bundle = getIntent().getExtras();
             if(bundle.getString("ROW") != null){
@@ -100,7 +101,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                 section = bundle.getString("SECTION");
             }
         }
-
+        */
         //row = getIntent().getStringExtra("ROW");
         //section = getIntent().getStringExtra("SECTION");
 
@@ -131,15 +132,15 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             //Add current batch to arraylist for passing to batch management
             batches.add(currentBatch);
             //Reset current batch
-            currentBatch = new Batch();
+            //currentBatch = new Batch();
             //Reset barcode count
             barcode_count = 0;
             //Increment batchID
             batchID++;
             //reset barcodes
             barcodeString = new ArrayList<>();
-            String row = "0";
-            String section = "0";
+            row = "0";
+            section = "0";
             //Reset current batch display
             txtBarcodeValue.post(() -> {
                 intentData = "";
@@ -172,6 +173,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
     }
+
+    //Function conrtols line animation
     private void setAnimation() {
         final View line = findViewById(R.id.line);
         final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -300,8 +303,15 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
                         String strDate = dateFormat.format(currentTime);
 
                         //TODO get row/section input -- Change to a dialog popup rather than an activity- Would improve workflow.
-                        //row = getIntent().getStringExtra("ROW");
-                       // section = getIntent().getStringExtra("SECTION");
+                        if(getIntent()!=null && getIntent().getExtras()!=null){
+                            Bundle bundle = getIntent().getExtras();
+                            if(bundle.getString("ROW") != null){
+                                row = bundle.getString("ROW");
+                            }
+                            if(bundle.getString("SECTION")!= null){
+                                section = bundle.getString("SECTION");
+                            }
+                        }
 
                         //Create container on each Scan then insert into database as these do not have GPS only batchIDs
                         dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
