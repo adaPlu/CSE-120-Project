@@ -80,8 +80,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
     int batchID = 0;
     int barcode_count = 0;
     //ArrayList<Container> containers = new ArrayList<Container>();
-    ArrayList<Batch> batches = new ArrayList<Batch>();
-    ArrayList<String> barcodeString = new ArrayList<String>();
+    ArrayList<Batch> batches = new ArrayList<>();
+    ArrayList<String> barcodeString = new ArrayList<>();
     //String[] barcodeString = new String[255];
     Batch currentBatch = new Batch();
 
@@ -93,10 +93,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         //Get Section and row from activity with out crash on null
         if(getIntent()!=null && getIntent().getExtras()!=null){
             Bundle bundle = getIntent().getExtras();
-            if(!bundle.getString("ROW").equals(null)){
+            if(bundle.getString("ROW") != null){
                 row = bundle.getString("ROW");
             }
-            if(!bundle.getString("SECTION").equals(null)){
+            if(bundle.getString("SECTION")!= null){
                 section = bundle.getString("SECTION");
             }
         }
@@ -137,7 +137,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             //Increment batchID
             batchID++;
             //reset barcodes
-            barcodeString = new ArrayList<String>();
+            barcodeString = new ArrayList<>();
             String row = "0";
             String section = "0";
             //Reset current batch display
@@ -152,9 +152,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
             //Insert current batches and pass to management for GPS update?
+
             for(int i = 0; i < batches.size(); i++){
-                dbManager.insert_batch(String.valueOf(batches.get(i).getBatchID()), batches.get(i).getNumOfContainers());
+                int id = batches.get(i).getBatchID();
+                int numOfContainers = batches.get(i).getNumOfContainers();
+                dbManager.insert_batch(String.valueOf(id), numOfContainers);
             }
+
             Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class);
             main.putExtra("BATCHES", batches);
             startActivity(main);
@@ -169,7 +173,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
         });
     }
     private void setAnimation() {
-        final View line = (View) findViewById(R.id.line);
+        final View line = findViewById(R.id.line);
         final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.move);
         anim.setAnimationListener(new Animation.AnimationListener() {
