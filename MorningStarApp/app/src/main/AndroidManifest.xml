@@ -32,6 +32,7 @@
         <activity android:name="com.morningstar.barcodevisionapi.PictureBarcodeActivity" />
         <activity android:name="com.morningstar.barcodevisionapi.ScannedBarcodeActivity" />
         <activity android:name="com.morningstar.barcodevisionapi.BatchManagementActivity" />
+        <activity android:name="com.morningstar.barcodevisionapi.BatchManagementActivity2" />
         <activity android:name="com.morningstar.barcodevisionapi.SearchActivity" />
         <activity android:name="com.morningstar.barcodevisionapi.AddSectionRowActivity" />
         <activity android:name="com.morningstar.barcodevisionapi.ModifyCountryActivity" />

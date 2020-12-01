@@ -1,4 +1,5 @@
-/*Ada Pluguez adapluguez@gmail.com- Morning Star Scanning and Tracking V0.2 11/17/20
+/*Morning Star Scanning and Tracking V0.4 11/17/20
+By Ada Pluguez adapluguez@gmail.com
 Description: This activity uses the device camera to scan barcodes in realtime.
 Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
 Then a container is created for insertion into a batch and the sql database.
@@ -8,18 +9,15 @@ When scanning complete is pressed the user is sent to the batch management scree
 Stages:
 0.1 Basic Code39 Scanning Working, Realtime GUI Render and Photo Multi-Scan
 0.2 Database Creation Occurs
-0.3 gets user input for section, Setup all main screen transitions via buttons.
-0.4 Scanning and database insertion and does not scan repeat barcodes
-0.5 Transfer to batch management screen via scanning
-0.6 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
+0.3 gets user input for section/row, setup all main screen transitions via buttons, Transfer to batch management screen via scanning.
+0.3.5 gets user input for section/row via popup dialog rather than activity.
+0.4 Scanning and database insertion
+0.4.5 Does not scan repeat barcodes
+0.5 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
 0.7 Build a container detail screen accessed from the batch detail screen by click on a container in the batch list
-0.8 Build a view database functionality - Build a main search functionality that displays results by one or more search parameters
-0.9 Organize and test all existing Functionality
-1.0 Minimum functionality state DEC 2nd goal
-References:
-https://www.journaldev.com/18198/qr-code-barcode-scanner-android
-https://www.journaldev.com/9438/android-sqlite-database-example-tutorial#opening-the-android-sqlite-database-file
-https://www.journaldev.com/13325/android-location-api-tracking-gps
+0.8 Build a view database functionality
+0.9 Build a main search functionality that displays results by one or more search parameters
+1.0 Organize and test all existing Functionality - Minimum functionality state
 */
 package com.morningstar.barcodevisionapi;
 
@@ -136,7 +134,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             barcode_count = 0;
             batchID = 0;
             //Send user to batch management activity screen
-            startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class));
+            startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class));
         });
         btnRow.setOnClickListener(v -> {
             //set row and section activity? or dialog popup of somekind? this is a placer holder for a better dialog popup
