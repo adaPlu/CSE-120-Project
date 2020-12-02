@@ -7,11 +7,6 @@ When batch complete is pressed the scanned barcode list is cleared and the batch
 A new batch is created for continued scanning.
 When scanning complete is pressed the user is sent to the batch management screen to assign gps coordinates.
 Stages:
-0.1 Basic Code39 Scanning Working, Realtime GUI Render and Photo Multi-Scan
-0.2 Database Creation Occurs
-0.3 gets user input for section/row, setup all main screen transitions via buttons, Transfer to batch management screen via scanning.
-0.3.5 gets user input for section/row via popup dialog rather than activity.
-0.4 Scanning and database insertion
 0.4.5 Does not scan repeat barcodes
 0.5 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
 0.7 Build a container detail screen accessed from the batch detail screen by click on a container in the batch list
@@ -26,13 +21,10 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -40,11 +32,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,17 +43,13 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
     //Variables
-    private EditText rowEditText;
-    private EditText sectionEditText;
     private DBManager dbManager;
-    private SimpleCursorAdapter adapter;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
@@ -77,13 +63,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     String intentData = "";
     String row = "0";
     String section = "0";
-
     int batchID = 0;
     int barcode_count = 0;
-    //ArrayList<Container> containers = new ArrayList<Container>();
+    ArrayList<Container> containers = new ArrayList<>();
     ArrayList<Batch> batches = new ArrayList<>();
-    ArrayList<String> barcodeString = new ArrayList<>();
-    //String[] barcodeString = new String[255];
+    ArrayList<String> barcodeS = new ArrayList<>();
     Batch currentBatch = new Batch();
 
     @Override
@@ -91,31 +75,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
 
-        //Get Section and row from activity with out crash on null
-        /*
-        if(getIntent()!=null && getIntent().getExtras()!=null){
-            Bundle bundle = getIntent().getExtras();
-            if(bundle.getString("ROW") != null){
-                row = bundle.getString("ROW");
-            }
-            if(bundle.getString("SECTION")!= null){
-                section = bundle.getString("SECTION");
-            }
-        }
-        */
-        //row = getIntent().getStringExtra("ROW");
-        //section = getIntent().getStringExtra("SECTION");
-
-
-        //For grabbing row and section input
-        //rowEditText = (EditText) findViewById(R.id.subject_edittext);
-        //sectionEditText = (EditText) findViewById(R.id.description_edittext);
 
         dbManager = new DBManager(this);
         dbManager.open();
 
-        //Cursor container_cursor = dbManager.fetch_containers();
-        //Cursor batch_cursor = dbManager.fetch_batches();
         rowAlert();
         sectionAlert();
         initViews();
@@ -181,16 +144,26 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
         //Batch Complete Button
         btnBatchComplete.setOnClickListener(v -> {
+            for(int i = 0; i < containers.size(); i++){
+                int id = containers.get(i).getBatchID();
+                int r = containers.get(i).getRow();
+                int s = containers.get(i).getSection();
+                String date = containers.get(i).getDate();
+                String barcode = containers.get(i).getBarcode();
+                dbManager.insert_container(batchID,barcode, date, r,  s);
+            }
+            //Reset Container Array
+            containers = new ArrayList<>();
             //Add current batch to arraylist for passing to batch management
             batches.add(currentBatch);
             //Reset current batch
-            //currentBatch = new Batch();
+            currentBatch = new Batch();
             //Reset barcode count
             barcode_count = 0;
             //Increment batchID
             batchID++;
             //reset barcodes
-            barcodeString = new ArrayList<>();
+            barcodeS = new ArrayList<>();
             row = "0";
             section = "0";
             //Reset current batch display
@@ -205,17 +178,24 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
             //Insert current batches and pass to management for GPS update
-
             for(int i = 0; i < batches.size(); i++){
                 int id = batches.get(i).getBatchID();
                 int numOfContainers = batches.get(i).getNumOfContainers();
                 dbManager.insert_batch(String.valueOf(id), numOfContainers);
             }
+            //Insert any remaining containers
+            for(int i = 0; i < containers.size(); i++){
+                int id = containers.get(i).getBatchID();
+                int r = containers.get(i).getRow();
+                int s = containers.get(i).getSection();
+                String date = containers.get(i).getDate();
+                String barcode = containers.get(i).getBarcode();
+                dbManager.insert_container(batchID,barcode, date, r,  s);
+            }
 
             Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class);
             DataWrapper a = new DataWrapper(batches);
             main.putExtra("batches", a);
-            //main.putParcelableArrayListExtra("batches",  batches);
             startActivity(main);
         });
 
@@ -323,11 +303,11 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     txtBarcodeValue.post(() -> {
                         //Add sound on scan?
                         //Grab last scanned barcode --Store code in array--needed?
-                        barcodeString.add(barcodes.valueAt(0).displayValue);
+                        barcodeS.add(barcodes.valueAt(0).displayValue);
                         //intentData = barcodes.valueAt(0).displayValue;
 
                         //Display Current barcodes scanned into the current batch
-                        intentData = intentData + " " + barcodeString.get(barcode_count) + "\n";
+                        intentData = intentData + " " + barcodeS.get(barcode_count) + "\n";
                         txtBarcodeValue.setText(intentData);
                         barcode_count++;
 
@@ -336,19 +316,12 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.US);
                         String strDate = dateFormat.format(currentTime);
-                        /*
-                        if(getIntent()!=null && getIntent().getExtras()!=null){
-                            Bundle bundle = getIntent().getExtras();
-                            if(bundle.getString("ROW") != null){
-                                row = bundle.getString("ROW");
-                            }
-                            if(bundle.getString("SECTION")!= null){
-                                section = bundle.getString("SECTION");
-                            }
-                        }
-                        */
+
                         //Create container on each Scan then insert into database as these do not have GPS only batchIDs
-                        //Container currentContainer = new Container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
+                        //dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
+
+                        Container currentContainer = new Container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
+                        containers.add(currentContainer);
                         currentBatch.setBatchID(batchID);
                         int temp = currentBatch.getNumOfContainers() + 1;
                         currentBatch.setNumOfContainers(temp);

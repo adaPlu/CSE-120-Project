@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Container {
     private int batchID;
     private String barcode;
+    private String date;
     private int row;
     private int section;
 
@@ -16,12 +17,15 @@ public class Container {
         row = 0;
         section = 0;
         barcode = "";
+        date = "";
     }
-    public Container (int batchID, int row, int section, String barcode){
+
+    public Container (int batchID, String barcode, String date, int row, int section){
         this.batchID =  batchID;
         this.row = row;
         this.section = section;
         this.barcode = barcode;
+        this.date = date;
     }
 
     @Override
@@ -29,6 +33,7 @@ public class Container {
         return "Container{" +
                 "batchID=" + batchID +
                 ", barcode='" + barcode + '\'' +
+                ", date=" + date +
                 ", row=" + row +
                 ", section=" + section +
                 '}';
@@ -47,7 +52,7 @@ public class Container {
 
     @Override
     public int hashCode() {
-        return Objects.hash(batchID, barcode, row, section);
+        return Objects.hash(batchID, barcode, row, section, date);
     }
 
     //Setters
@@ -67,6 +72,7 @@ public class Container {
         this.section = section;
     }
 
+    public void setDate(String date) { this.date = date; }
 
     //Getters
     public int getBatchID() {
@@ -84,4 +90,6 @@ public class Container {
     public String getBarcode() {
         return barcode;
     }
+
+    public String getDate() { return date; }
 }
