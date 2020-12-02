@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
         }
         if(v.getId() == R.id.btnBatchManagement){
-            startActivity(new Intent(MainActivity.this, BatchManagementActivity.class));
+            startActivity(new Intent(MainActivity.this, BatchManagementActivity2.class));
         }
         if(v.getId() == R.id.btnSearch){
             startActivity(new Intent(MainActivity.this, SearchActivity.class));
         }
         if(v.getId() == R.id.btnSync){
-            //startActivity(new Intent(MainActivity.this, SyncActivity.class));
+            startActivity(new Intent(MainActivity.this, SyncActivity.class));
         }
     }
 }

@@ -58,7 +58,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
 
-public class ScannedBarcodeActivity extends AppCompatActivity {// implements View.OnClickListener  {
+public class ScannedBarcodeActivity extends AppCompatActivity {
     //Variables
     private EditText rowEditText;
     private EditText sectionEditText;
@@ -152,7 +152,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
 
         //Scanning Complete Button
         btnScanComplete.setOnClickListener(v -> {
-            //Insert current batches and pass to management for GPS update?
+            //Insert current batches and pass to management for GPS update
 
             for(int i = 0; i < batches.size(); i++){
                 int id = batches.get(i).getBatchID();
@@ -161,17 +161,22 @@ public class ScannedBarcodeActivity extends AppCompatActivity {// implements Vie
             }
 
             Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class);
-            main.putExtra("BATCHES", batches);
+            DataWrapper a = new DataWrapper(batches);
+            main.putExtra("batches", a);
+            //main.putParcelableArrayListExtra("batches",  batches);
             startActivity(main);
         });
+
         btnRow.setOnClickListener(v -> {
             //set row and section activity? or dialog popup of somekind? this is a placer holder for a better dialog popup
             startActivity(new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class));
         });
+
         btnExit.setOnClickListener(v -> {
             //dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
+
     }
 
     //Function conrtols line animation

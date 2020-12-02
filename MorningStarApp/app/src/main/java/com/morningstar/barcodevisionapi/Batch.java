@@ -1,13 +1,19 @@
 package com.morningstar.barcodevisionapi;
 
-import java.util.Arrays;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Batch {
+public class Batch implements Serializable {
     private int batchID;
     private int numOfContainers;
     private double latitude;
     private double longitude;
+    private int mData;
+
+
 
     //Default Constructor
     public Batch(){
@@ -23,6 +29,7 @@ public class Batch {
         this.longitude = longitude;
     }
 
+    @androidx.annotation.NonNull
     @Override
     public String toString() {
         return "Batch{" +
@@ -83,5 +90,6 @@ public class Batch {
     public double getLatitude() {
         return latitude;
     }
+
 
 }

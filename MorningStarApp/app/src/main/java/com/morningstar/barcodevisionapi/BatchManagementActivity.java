@@ -19,11 +19,14 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class BatchManagementActivity extends AppCompatActivity{
     //Variables
     private DBManager dbManager;
     private SimpleCursorAdapter adapter;
+    ArrayList<Batch> batches = new ArrayList<>();
     //Widgets
     Button btnAddGPS;
     Button btnNewBatch;
@@ -56,6 +59,19 @@ public class BatchManagementActivity extends AppCompatActivity{
         //DB cursors for access?
         Cursor container_cursor = dbManager.fetch_containers();
         Cursor batch_cursor = dbManager.fetch_batches();
+        //Grab passed Arraylist of batches
+        DataWrapper dw = (DataWrapper) getIntent().getSerializableExtra("batches");
+       if (dw != null) {
+            batches = dw.getBatches();
+       }
+        //batches = getIntent().getParcelableArrayListExtra("batches");
+        /*
+        for(int i = 0; i < batches.size(); i++){
+            int id = batches.get(i).getBatchID();
+            int numOfContainers = batches.get(i).getNumOfContainers();
+            dbManager.insert_batch(String.valueOf(id), numOfContainers);
+        }
+        */
 
         initViews();
     }
