@@ -301,14 +301,21 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), "Barcode Already Scanned to Current Batch.", Toast.LENGTH_SHORT).show();
                     //Display barcodes to the textview located above batch complete button on the left hand side of the screen
                     txtBarcodeValue.post(() -> {
-                        //Add sound on scan?
+                        //check for duplicates
+                        for(int i = 0; i < barcodeS.size(); i++){
+                            if(barcodeS.get(i).contains(barcodes.valueAt(0).displayValue)){
+                                Toast.makeText(getApplicationContext(), "Barcode Already Scanned to Current Batch.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
                         //Grab last scanned barcode --Store code in array--needed?
                         barcodeS.add(barcodes.valueAt(0).displayValue);
                         //intentData = barcodes.valueAt(0).displayValue;
 
                         //Display Current barcodes scanned into the current batch
                         intentData = intentData + " " + barcodeS.get(barcode_count) + "\n";
-                        txtBarcodeValue.setText(intentData);
+                        //txtBarcodeValue.setText(intentData);
+
                         barcode_count++;
 
                         //Grab date/time of scan then convert to string
@@ -325,6 +332,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         currentBatch.setBatchID(batchID);
                         int temp = currentBatch.getNumOfContainers() + 1;
                         currentBatch.setNumOfContainers(temp);
+
+
+                        txtBarcodeValue.setText(intentData);
                     });
 
                 }
