@@ -1,4 +1,4 @@
-/*Morning Star Scanning and Tracking V0.4 11/17/20
+/*Morning Star Scanning and Tracking V0.5 12/1/20
 By Ada Pluguez adapluguez@gmail.com
 Description: This activity uses the device camera to scan barcodes in realtime.
 Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
@@ -7,8 +7,8 @@ When batch complete is pressed the scanned barcode list is cleared and the batch
 A new batch is created for continued scanning.
 When scanning complete is pressed the user is sent to the batch management screen to assign gps coordinates.
 Stages:
-0.4.5 Does not scan repeat barcodes
-0.5 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
+
+0.6 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
 0.7 Build a container detail screen accessed from the batch detail screen by click on a container in the batch list
 0.8 Build a view database functionality
 0.9 Build a main search functionality that displays results by one or more search parameters
