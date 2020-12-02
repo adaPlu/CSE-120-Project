@@ -26,15 +26,15 @@
         android:text="@string/scan_barcode"
         android:textColor="@android:color/white" />
     <Button
-        android:id="@+id/btnBatchManagement"
+        android:id="@+id/btnExit"
         android:background="#3B9C3F"
         android:textColor="@android:color/white"
         android:layout_width="254dp"
         android:layout_height="94dp"
-        android:layout_below="@+id/btnScanBarcode"
+        android:layout_below="@+id/btnSync"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="@string/batch_management" />
+        android:text="@string/exit" />
 
     <Button
         android:id="@+id/btnSearch"
@@ -42,7 +42,7 @@
         android:textColor="@android:color/white"
         android:layout_width="254dp"
         android:layout_height="94dp"
-        android:layout_below="@+id/btnBatchManagement"
+        android:layout_below="@+id/btnScanBarcode"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="@string/search_db" />

@@ -8,10 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
 
-    Button btnBatchManagement, btnScanBarcode, btnSync, btnSearch;
+    Button btnExit, btnScanBarcode, btnSync, btnSearch;
     private DBManager dbManager;
     private SimpleCursorAdapter adapter;
 
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private void initViews() {
         btnScanBarcode = findViewById(R.id.btnScanBarcode);
         btnScanBarcode.setOnClickListener(this);
-        btnBatchManagement = findViewById(R.id.btnBatchManagement);
-        btnBatchManagement.setOnClickListener(this);
+        btnExit = findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(this);
         btnSearch = findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(this);
         btnSync = findViewById(R.id.btnSync);
@@ -50,14 +51,17 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         if(v.getId() == R.id.btnScanBarcode){
             startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
         }
-        if(v.getId() == R.id.btnBatchManagement){
-            startActivity(new Intent(MainActivity.this, BatchManagementActivity2.class));
+        if(v.getId() == R.id.btnExit){
+            //startActivity(new Intent(MainActivity.this, BatchManagementActivity2.class));
+            this.finish();
+            System.exit(0);
         }
         if(v.getId() == R.id.btnSearch){
             startActivity(new Intent(MainActivity.this, SearchActivity.class));
         }
         if(v.getId() == R.id.btnSync){
-            startActivity(new Intent(MainActivity.this, SyncActivity.class));
+            //startActivity(new Intent(MainActivity.this, SyncActivity.class));
+            Toast.makeText(getApplicationContext(), "Sync Function Not Ready...", Toast.LENGTH_SHORT).show();
         }
     }
 }
