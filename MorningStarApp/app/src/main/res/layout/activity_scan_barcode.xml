@@ -6,16 +6,6 @@
     android:padding="@dimen/activity_horizontal_margin">
 
 
-    <Button
-        android:id="@+id/btnExit"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="0dp"
-        android:text="@string/exit" />
-
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="395dp"
@@ -36,47 +26,76 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
 
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="62dp"
         android:layout_marginEnd="243dp"
 
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="0dp"
         android:text="@string/no_barcode"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/btnBatchComplete"
-        android:layout_width="334dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="61dp"
-        android:text="@string/batch_complete" />
-
-    <Button
-        android:id="@+id/btnScanningComplete"
-        android:layout_width="277dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="54dp"
-        android:text="@string/scan_complete" />
-
     <Button
         android:id="@+id/btnRow"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="175dp"
+        android:layout_marginBottom="0dp"
         android:text="@string/row" />
+
+    <Button
+        android:id="@+id/btnBatchComplete"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="235dp"
+        android:text="@string/batch_complete" />
+
+    <Button
+        android:id="@+id/btnScanningComplete"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="125dp"
+        android:layout_marginEnd="71dp"
+        android:text="@string/scan_complete" />
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="305dp"
+        android:text="@string/exit" />
 
     <Button
         android:id="@+id/btnSec"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
+        android:text="Sec"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="324dp"
-        android:text="Sec" />
+        android:layout_alignParentBottom="true"/>
+    <Button
+        android:id="@+id/btnClearBatch"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="clear batch"
+        android:layout_marginStart="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/btnClearLastScan"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:text="@string/clear_scan"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
 
     <RelativeLayout
         android:id="@+id/centerLayout"

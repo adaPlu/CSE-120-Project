@@ -59,7 +59,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnScanComplete;
     Button btnRow;
     Button btnSec;
+    Button btnClearScan;
     Button btnExit;
+    Button btnClearBatch;
     String intentData = "";
     String row = "0";
     String section = "0";

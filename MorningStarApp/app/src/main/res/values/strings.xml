@@ -37,4 +37,7 @@
     <string name="row">Row</string>
     <string name="exit">exit</string>
     <string name="x">X</string>
+    <string name="sec">Sec</string>
+    <string name="last">Last</string>
+    <string name="clear_scan">clear scan</string>
 </resources>
