@@ -60,8 +60,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnRow;
     Button btnSec;
     Button btnClearScan;
-    Button btnExit;
     Button btnClearBatch;
+    Button btnExit;
     String intentData = "";
     String row = "0";
     String section = "0";
@@ -142,6 +142,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         btnScanComplete = findViewById(R.id.btnScanningComplete);
         btnRow = findViewById(R.id.btnRow);
         btnSec = findViewById(R.id.btnSec);
+        btnClearBatch = findViewById(R.id.btnClearBatch);
+        btnClearScan = findViewById(R.id.btnClearScan);
         btnExit = findViewById(R.id.btnExit);
 
         //Batch Complete Button
@@ -207,10 +209,23 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         btnSec.setOnClickListener(v -> {
             sectionAlert();
         });
+        btnClearBatch.setOnClickListener(v -> {
+            clearBatch();
+        });
+        btnClearScan.setOnClickListener(v -> {
+            removeLastScan();
+        });
         btnExit.setOnClickListener(v -> {
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
 
+    }
+
+    private void removeLastScan(){
+        //TODO Clear last scan and remove from textview
+    }
+    private void clearBatch(){
+        //TODO Clear current batch and reset textview
     }
 
     //Function controls line animation
@@ -298,10 +313,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
                 if (barcodes.size() != 0) {
-
-                    //TODO Notify user of a repeated barcode(use toast) and  do not add to batch
-                    //Toast.makeText(getApplicationContext(), "Barcode Already Scanned to Current Batch.", Toast.LENGTH_SHORT).show();
-                    //Display barcodes to the textview located above batch complete button on the left hand side of the screen
+                    //TODO add beep on detection
+                    //Notify user of a repeated barcode(using toast) and  do not add to batch
                     txtBarcodeValue.post(() -> {
                         //check for duplicates
                         for(int i = 0; i < barcodeS.size(); i++){
@@ -344,13 +357,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             }
         });
         setAnimation();
-
-    }
-
-    private void removeLastScan(){
-
-    }
-    private void clearBatch(){
 
     }
 
