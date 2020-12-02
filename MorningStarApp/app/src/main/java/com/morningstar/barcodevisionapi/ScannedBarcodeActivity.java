@@ -308,7 +308,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                                 return;
                             }
                         }
-                        //Grab last scanned barcode --Store code in array--needed?
+                        //Grab last scanned barcode
                         barcodeS.add(barcodes.valueAt(0).displayValue);
                         //intentData = barcodes.valueAt(0).displayValue;
 
@@ -345,6 +345,12 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
     }
 
+    private void removeLastScan(){
+
+    }
+    private void clearBatch(){
+
+    }
 
     @Override
     protected void onPause() {
