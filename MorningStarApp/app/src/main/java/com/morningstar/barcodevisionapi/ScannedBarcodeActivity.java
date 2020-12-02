@@ -65,7 +65,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     String intentData = "";
     String row = "0";
     String section = "0";
-    int batchID = 0;
+    int batchID = 1;
     int barcode_count = 0;
     ArrayList<Container> containers = new ArrayList<>();
     ArrayList<Batch> batches = new ArrayList<>();
@@ -172,7 +172,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             section = "0";
             //Reset current batch display
             txtBarcodeValue.post(() -> {
-                intentData = "";
+                intentData = batchID + ":\n";
                 txtBarcodeValue.setText(intentData);
             });
 
@@ -210,7 +210,21 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             sectionAlert();
         });
         btnClearBatch.setOnClickListener(v -> {
-            clearBatch();
+            //Reset Container Array
+            containers = new ArrayList<>();
+            //Reset current batch
+            currentBatch = new Batch();
+            //Reset barcode count
+            barcode_count = 0;
+            //reset barcodes
+            barcodeS = new ArrayList<>();
+            row = "0";
+            section = "0";
+            //Reset current batch display
+            txtBarcodeValue.post(() -> {
+                intentData = batchID + ":\n";
+                txtBarcodeValue.setText(intentData);
+            });
         });
         btnClearScan.setOnClickListener(v -> {
             removeLastScan();
@@ -223,10 +237,15 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
     private void removeLastScan(){
         //TODO Clear last scan and remove from textview
+        String remove = containers.get(barcode_count).getBarcode();
+        containers.remove(barcode_count);
+        intentData = intentData.replace(remove, "");
+        txtBarcodeValue.post(() -> {
+            txtBarcodeValue.setText(intentData);
+        });
+
     }
-    private void clearBatch(){
-        //TODO Clear current batch and reset textview
-    }
+
 
     //Function controls line animation
     private void setAnimation() {
@@ -325,7 +344,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         }
                         //Grab last scanned barcode
                         barcodeS.add(barcodes.valueAt(0).displayValue);
-                        //intentData = barcodes.valueAt(0).displayValue;
+                        intentData = batchID + ":\n";
 
                         //Display Current barcodes scanned into the current batch
                         intentData = intentData + " " + barcodeS.get(barcode_count) + "\n";
@@ -335,7 +354,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
                         //Grab date/time of scan then convert to string
                         Date currentTime = Calendar.getInstance().getTime();
-                        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.US);
                         String strDate = dateFormat.format(currentTime);
 
