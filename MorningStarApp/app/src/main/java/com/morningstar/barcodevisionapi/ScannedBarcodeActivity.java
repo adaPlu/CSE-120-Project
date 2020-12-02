@@ -72,6 +72,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnBatchComplete;
     Button btnScanComplete;
     Button btnRow;
+    Button btnSec;
     Button btnExit;
     String intentData = "";
     String row = "0";
@@ -115,16 +116,67 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
         //Cursor container_cursor = dbManager.fetch_containers();
         //Cursor batch_cursor = dbManager.fetch_batches();
-
+        rowAlert();
+        sectionAlert();
         initViews();
     }
+    private void rowAlert(){
+       AlertDialog.Builder alert = new AlertDialog.Builder(ScannedBarcodeActivity.this);
 
+        alert.setTitle("Set Row");
+        alert.setMessage("Row:");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(ScannedBarcodeActivity.this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                 row = input.getText().toString();
+
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+
+    }
+    private void sectionAlert(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(ScannedBarcodeActivity.this);
+
+        alert.setTitle("Set Section");
+        alert.setMessage("Section:");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(ScannedBarcodeActivity.this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                section = input.getText().toString();
+
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+
+    }
     private void initViews() {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
         btnBatchComplete = findViewById(R.id.btnBatchComplete);
         btnScanComplete = findViewById(R.id.btnScanningComplete);
         btnRow = findViewById(R.id.btnRow);
+        btnSec = findViewById(R.id.btnSec);
         btnExit = findViewById(R.id.btnExit);
 
         //Batch Complete Button
@@ -168,18 +220,18 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         });
 
         btnRow.setOnClickListener(v -> {
-            //set row and section activity? or dialog popup of somekind? this is a placer holder for a better dialog popup
-            startActivity(new Intent(ScannedBarcodeActivity.this, AddSectionRowActivity.class));
+            rowAlert();
         });
-
+        btnSec.setOnClickListener(v -> {
+            sectionAlert();
+        });
         btnExit.setOnClickListener(v -> {
-            //dbManager.insert_batch(String.valueOf(batchID), barcode_count);
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
 
     }
 
-    //Function conrtols line animation
+    //Function controls line animation
     private void setAnimation() {
         final View line = findViewById(R.id.line);
         final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -202,6 +254,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         });
         line.startAnimation(anim);
     }
+
+    //Create barcode detectors and camaera sources
     private void initialiseDetectorsAndSources() {
         //Toasts are small circular box text at the bottom of device screen
         //Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
@@ -260,31 +314,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-                /*
-                //TODO get row/section input -Attempt at a dialog popup rather than an activity- Crashes?. Need better examples...
-                AlertDialog.Builder alert = new AlertDialog.Builder(ScannedBarcodeActivity.this);
 
-                alert.setTitle("Title");
-                alert.setMessage("Message");
-
-                // Set an EditText view to get user input
-                final EditText input = new EditText(ScannedBarcodeActivity.this);
-                alert.setView(input);
-
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString();
-                        // Do something with value!
-                    }
-                });
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
-                    }
-                });
-
-                alert.show();
-                */
                 if (barcodes.size() != 0) {
 
                     //TODO Notify user of a repeated barcode(use toast) and  do not add to batch
@@ -306,8 +336,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.US);
                         String strDate = dateFormat.format(currentTime);
-
-                        //TODO get row/section input -- Change to a dialog popup rather than an activity- Would improve workflow.
+                        /*
                         if(getIntent()!=null && getIntent().getExtras()!=null){
                             Bundle bundle = getIntent().getExtras();
                             if(bundle.getString("ROW") != null){
@@ -317,9 +346,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                                 section = bundle.getString("SECTION");
                             }
                         }
-
+                        */
                         //Create container on each Scan then insert into database as these do not have GPS only batchIDs
-                        dbManager.insert_container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
                         //Container currentContainer = new Container(batchID,barcodes.valueAt(0).displayValue, strDate, Integer.parseInt(row),  Integer.parseInt(section));
                         currentBatch.setBatchID(batchID);
                         int temp = currentBatch.getNumOfContainers() + 1;
@@ -349,13 +377,5 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
     public interface BarcodeReaderListener {
     }
-/*
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.btnAction2){
-            startActivity(new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class));
-        }
-    }
 
- */
 }
