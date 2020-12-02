@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class BatchManagementActivity2 extends AppCompatActivity {
-    ArrayList<DataModel> dataModels;
+    ArrayList dataModels;
     ArrayList<Batch> batches = new ArrayList<>();
     ListView listView;
     private CustomAdapter adapter;
@@ -39,7 +39,7 @@ public class BatchManagementActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch_management2);
-        listView = findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
         //Connect to or create DB
         dbManager = new DBManager(this);
         dbManager.open();
@@ -48,7 +48,7 @@ public class BatchManagementActivity2 extends AppCompatActivity {
         Cursor batch_cursor = dbManager.fetch_batches();
 
         initViews();
-        dataModels = new ArrayList<>();
+        dataModels = new ArrayList();
         dataModels.add(new DataModel("Batch#:", false));
         dataModels.add(new DataModel("Batch#", false));
         dataModels.add(new DataModel("Batch#", false));
@@ -63,10 +63,13 @@ public class BatchManagementActivity2 extends AppCompatActivity {
         dataModels.add(new DataModel("Batch#", false));
         adapter = new CustomAdapter(dataModels, getApplicationContext());
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            DataModel dataModel = dataModels.get(position);
-            dataModel.checked = !dataModel.checked;
-            adapter.notifyDataSetChanged();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                DataModel dataModel = (DataModel) dataModels.get(position);
+                dataModel.checked = !dataModel.checked;
+                adapter.notifyDataSetChanged();
+            }
         });
 
     }
@@ -90,8 +93,6 @@ public class BatchManagementActivity2 extends AppCompatActivity {
         });
         //Sends user back to scanning activity
         btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity2.this, ScannedBarcodeActivity.class)));
-        //Sends user to main Screen
-        btnExit.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity2.this, MainActivity.class)));
 
         btnEditBatch.setOnClickListener(v -> {
 
