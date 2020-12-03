@@ -40,6 +40,6 @@
     <string name="sec">Sec</string>
     <string name="last">Last</string>
     <string name="clear_scan">clear scan</string>
-    <string name="scan_done">scan done</string>
+    <string name="scan_done">scanning done</string>
     <string name="batch_done">batch done</string>
 </resources>
