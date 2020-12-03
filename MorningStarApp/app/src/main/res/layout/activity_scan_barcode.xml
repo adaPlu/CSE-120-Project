@@ -9,7 +9,7 @@
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="395dp"
-        android:layout_height="638dp"
+        android:layout_height="636dp"
         android:layout_above="@+id/btnBatchComplete"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
@@ -36,66 +36,81 @@
         android:textSize="14sp" />
     <Button
         android:id="@+id/btnRow"
-        android:layout_width="65dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="175dp"
+        android:layout_marginStart="200dp"
         android:layout_marginBottom="0dp"
-        android:text="@string/row" />
+        android:text="@string/row"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
 
     <Button
-        android:id="@+id/btnBatchComplete"
-        android:layout_width="145dp"
+        android:id="@+id/btnSec"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="Sec"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="235dp"
-        android:text="@string/batch_complete" />
-
+        android:maxLines="1"
+        android:ellipsize="end"/>
     <Button
         android:id="@+id/btnScanningComplete"
-        android:layout_width="220dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="125dp"
-        android:layout_marginEnd="71dp"
-        android:text="@string/scan_complete" />
+        android:layout_marginEnd="85dp"
+        android:text="@string/scan_done"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
     <Button
         android:id="@+id/btnExit"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="305dp"
-        android:text="@string/exit" />
+        android:text="@string/exit"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
     <Button
-        android:id="@+id/btnSec"
-        android:layout_width="65dp"
+        android:id="@+id/btnBatchComplete"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="115dp"
-        android:text="Sec"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="270dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/new_batch" />
+
     <Button
         android:id="@+id/btnClearBatch"
-        android:layout_width="120dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:text="clear batch"
+        android:text="clear"
         android:layout_marginStart="0dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
     <Button
         android:id="@+id/btnClearScan"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
         android:text="@string/clear_scan"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
     <RelativeLayout
         android:id="@+id/centerLayout"
