@@ -55,13 +55,15 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             //startActivity(new Intent(MainActivity.this, BatchManagementActivity2.class));
             this.finish();
             System.exit(0);
+            this.finish();
+            System.exit(1);
         }
         if(v.getId() == R.id.btnSearch){
             startActivity(new Intent(MainActivity.this, SearchActivity.class));
         }
         if(v.getId() == R.id.btnSync){
             //startActivity(new Intent(MainActivity.this, SyncActivity.class));
-            Toast.makeText(getApplicationContext(), "Sync Function Not Ready...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Sync Feature Coming Soon...", Toast.LENGTH_SHORT).show();
         }
     }
 }

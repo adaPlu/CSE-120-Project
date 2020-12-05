@@ -61,11 +61,12 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnSec;
     Button btnClearScan;
     Button btnClearBatch;
-    Button btnExit;
-    String intentData = "";
+    Button btnQuit;
+
     String row = "0";
     String section = "0";
     int batchID = 1;
+    String intentData =  intentData = "BatchID:" + batchID + ":\n";
     int barcode_count = 0;
     ArrayList<Container> containers = new ArrayList<>();
     ArrayList<Batch> batches = new ArrayList<>();
@@ -143,8 +144,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         btnRow = findViewById(R.id.btnRow);
         btnSec = findViewById(R.id.btnSec);
         btnClearBatch = findViewById(R.id.btnClearBatch);
-        btnClearScan = findViewById(R.id.btnClearScan);
-        btnExit = findViewById(R.id.btnExit);
+        btnQuit = findViewById(R.id.btnQuit);
 
         //Batch Complete Button
         btnBatchComplete.setOnClickListener(v -> {
@@ -172,7 +172,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             section = "0";
             //Reset current batch display
             txtBarcodeValue.post(() -> {
-                intentData = batchID + ":\n";
+                intentData = "BatchID:" + batchID + ":\n";
                 txtBarcodeValue.setText(intentData);
             });
 
@@ -222,29 +222,18 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             section = "0";
             //Reset current batch display
             txtBarcodeValue.post(() -> {
-                intentData = batchID + ":\n";
+                intentData = "BatchID:" + batchID + ":\n";
                 txtBarcodeValue.setText(intentData);
             });
         });
-        btnClearScan.setOnClickListener(v -> {
-            removeLastScan();
-        });
-        btnExit.setOnClickListener(v -> {
+
+        btnQuit.setOnClickListener(v -> {
+            this.finish();
             startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
 
     }
 
-    private void removeLastScan(){
-        //TODO Clear last scan and remove from textview
-        String remove = containers.get(barcode_count).getBarcode();
-        containers.remove(barcode_count);
-        intentData = intentData.replace(remove, "");
-        txtBarcodeValue.post(() -> {
-            txtBarcodeValue.setText(intentData);
-        });
-
-    }
 
 
     //Function controls line animation
@@ -344,7 +333,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         }
                         //Grab last scanned barcode
                         barcodeS.add(barcodes.valueAt(0).displayValue);
-                        intentData = batchID + ":\n";
+
 
                         //Display Current barcodes scanned into the current batch
                         intentData = intentData + " " + barcodeS.get(barcode_count) + "\n";

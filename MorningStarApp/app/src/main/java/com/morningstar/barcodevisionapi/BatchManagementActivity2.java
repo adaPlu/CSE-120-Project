@@ -33,7 +33,7 @@ public class BatchManagementActivity2 extends AppCompatActivity {
     Button btnAddGPS;
     Button btnNewBatch;
     Button btnEditBatch;
-    Button btnExit;
+    Button btnQuit2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class BatchManagementActivity2 extends AppCompatActivity {
         btnAddGPS = findViewById(R.id.btnAddGPS);
         btnNewBatch = findViewById(R.id.btnNewBatch);
         btnEditBatch = findViewById(R.id.btnEditBatch);
-        btnExit = findViewById(R.id.btnExit);
+        btnQuit2 = findViewById(R.id.btnQuit2);
         DataWrapper dw = (DataWrapper) getIntent().getSerializableExtra("batches");
         if (dw != null) {
             batches = dw.getBatches();
@@ -95,7 +95,7 @@ public class BatchManagementActivity2 extends AppCompatActivity {
         //Sends user back to scanning activity
         btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity2.this, ScannedBarcodeActivity.class)));
 
-        btnExit.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity2.this, MainActivity.class)));
+        btnQuit2.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity2.this, MainActivity.class)));
         btnEditBatch.setOnClickListener(v -> {
 
             //TODO 1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
