@@ -49,6 +49,7 @@ public class BarcodeLocationActivity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(getApplicationContext(), "Permission was not granted", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
         else {
@@ -70,6 +71,7 @@ public class BarcodeLocationActivity extends AppCompatActivity {
                 main.putExtra("LONG", longitude);
                 startActivity(main);
                 //Toast.makeText(getApplicationContext(), "Longitude: "+ currentLocation.getLongitude() + ", Latitude: "+currentLocation.getLatitude(), Toast.LENGTH_LONG).show();
+                finish();
             });
             currentLocationResult.addOnFailureListener(this, e ->
                     Toast.makeText(getApplicationContext(), "Location failed: " + currentLocationResult.getException().toString(), Toast.LENGTH_LONG).show()
@@ -81,14 +83,16 @@ public class BarcodeLocationActivity extends AppCompatActivity {
     }
 
     void displayLocationSettingsRequest(Context context) {
+        /*
         LocationRequest mHighAccuracyLocationRequest = new LocationRequest();
         mHighAccuracyLocationRequest.setPriority(PRIORITY_HIGH_ACCURACY);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(mHighAccuracyLocationRequest);
         LocationSettingsRequest locationSettingsRequest = builder.build();
         SettingsClient settingsClient = LocationServices.getSettingsClient(this);
-
-
+        */
+        getLocation();
+         /*
         Task<LocationSettingsResponse> result = settingsClient.checkLocationSettings(builder.build());
         result.addOnSuccessListener(this, locationSettingsResponse ->
                 getLocation()
@@ -110,6 +114,8 @@ public class BarcodeLocationActivity extends AppCompatActivity {
                 }
             }
         });
+        */
+
 
 
     }
