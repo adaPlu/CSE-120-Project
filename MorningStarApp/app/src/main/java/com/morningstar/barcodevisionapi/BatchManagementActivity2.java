@@ -95,7 +95,7 @@ public class BatchManagementActivity2 extends AppCompatActivity {
         //Sends user back to scanning activity
         btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity2.this, ScannedBarcodeActivity.class)));
 
-        btnQuit2.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity2.this, MainActivity.class)));
+        btnQuit2.setOnClickListener(v -> this.finish());
         btnEditBatch.setOnClickListener(v -> {
 
             //TODO 1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
