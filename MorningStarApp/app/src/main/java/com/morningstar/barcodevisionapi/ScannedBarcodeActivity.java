@@ -229,7 +229,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
         btnQuit.setOnClickListener(v -> {
             this.finish();
-            startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
+           // android.os.Process.killProcess(android.os.Process.myPid());
+            //startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
 
     }

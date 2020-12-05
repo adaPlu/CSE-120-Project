@@ -53,10 +53,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
         if(v.getId() == R.id.btnExit){
             //startActivity(new Intent(MainActivity.this, BatchManagementActivity2.class));
-            this.finish();
-            System.exit(0);
-            this.finish();
+            //this.finish();
+            //System.exit(0);
+            android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
+
         }
         if(v.getId() == R.id.btnSearch){
             startActivity(new Intent(MainActivity.this, SearchActivity.class));
