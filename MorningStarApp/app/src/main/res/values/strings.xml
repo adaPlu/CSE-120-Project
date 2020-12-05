@@ -29,7 +29,7 @@
     <string name="search_db">SEARCH INVENTORY</string>
     <string name="search">SEARCH</string>
     <string name="checkbox">CheckBox</string>
-    <string name="new_batch">NEW</string>
+    <string name="new_batch">NEW BATCH</string>
     <string name="edit_batch">EDIT</string>
     <string name="add_gps">ADD GPS</string>
     <string name="scanned_barcodes">SCANNED BARCODES:</string>
@@ -42,4 +42,6 @@
     <string name="clear_scan">clear scan</string>
     <string name="scan_done">scanning done</string>
     <string name="batch_done">batch done</string>
+    <string name="clear_batch">clear batch</string>
+    <string name="quit">Quit</string>
 </resources>
