@@ -3,14 +3,14 @@ By Ada Pluguez
 Contact Info: Email:adapluguez@gmail.com Phone:2096086998
 I was the lead engineer on this project and this is mostly my code.
 It is unfinished as I had to work alone primarily as my group was a bit unreliable.
-If you have any questions or would like this project completed contact me a the above email or telephone number.
+If you have any questions or would like this project completed contact me at the above email or telephone number.
 Description: This activity uses the device camera to scan barcodes in realtime.
 Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
 Then a container is created for insertion into a batch and the sql database.
 When batch complete is pressed the scanned barcode list is cleared and the batch is inserted into the database.
 A new batch is created for continued scanning.
 When scanning complete is pressed the user is sent to the batch management screen to assign gps coordinates.
-Stages:
+Unfinished Stages:
 0.6 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
 0.7 Build a container detail screen accessed from the batch detail screen by click on a container in the batch list
 0.8 Build a view database functionality
