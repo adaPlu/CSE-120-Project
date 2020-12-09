@@ -5,113 +5,93 @@ package com.morningstar.barcodevisionapi;
 * Edit mode details see the EditBatchActivity description.
 * Clicking new sends the user back to the realtime scanning screen.
 * Batches are listed by batch id, GPS?(maybe)
+*
 * */
+
 import android.content.Intent;
 import android.database.Cursor;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import android.widget.AdapterView;
 import java.util.ArrayList;
 
 
-public class BatchManagementActivity extends AppCompatActivity{
+public class BatchManagementActivity extends AppCompatActivity {
+    ArrayList<DataModel> dataModels = new ArrayList<>();
+    ArrayList<Batch> batches = new ArrayList<>();
+    ListView listView;
+    private CustomAdapter adapter;
     //Variables
     private DBManager dbManager;
-    private SimpleCursorAdapter adapter;
-    ArrayList<Batch> batches = new ArrayList<>();
+    private SimpleCursorAdapter adapter2;
     //Widgets
     Button btnAddGPS;
     Button btnNewBatch;
     Button btnEditBatch;
-    CheckBox checkBox;
-    CheckBox checkBox2;
-    CheckBox checkBox3;
-    CheckBox checkBox4;
-    CheckBox checkBox5;
-    CheckBox checkBox6;
-    CheckBox checkBox7;
-    CheckBox checkBox8;
-    CheckBox checkBox9;
-    CheckBox checkBox10;
-    CheckBox checkBox11;
-    CheckBox checkBox12;
-    CheckBox checkBox13;
-    CheckBox checkBox14;
-    CheckBox checkBox15;
-    CheckBox checkBox16;
+    Button btnQuit2;
 
-    //Same as main
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch_management);
-        //Object retrival getIntent().getSerializableExtra("BATCHES");
+        listView = findViewById(R.id.listView);
         //Connect to or create DB
         dbManager = new DBManager(this);
         dbManager.open();
         //DB cursors for access?
         Cursor container_cursor = dbManager.fetch_containers();
         Cursor batch_cursor = dbManager.fetch_batches();
-        //Grab passed Arraylist of batches
-        DataWrapper dw = (DataWrapper) getIntent().getSerializableExtra("batches");
-       if (dw != null) {
-            batches = dw.getBatches();
-       }
-        //batches = getIntent().getParcelableArrayListExtra("batches");
-        /*
-        for(int i = 0; i < batches.size(); i++){
-            int id = batches.get(i).getBatchID();
-            int numOfContainers = batches.get(i).getNumOfContainers();
-            dbManager.insert_batch(String.valueOf(id), numOfContainers);
-        }
-        */
 
         initViews();
+        dataModels = new ArrayList<>();
+        dataModels.add(new DataModel("Batch#:", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        dataModels.add(new DataModel("Batch#", false));
+        adapter = new CustomAdapter(dataModels, getApplicationContext());
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            DataModel dataModel = dataModels.get(position);
+            dataModel.checked = !dataModel.checked;
+            adapter.notifyDataSetChanged();
+        });
+
     }
+
     //Init view of screen widgets
     private void initViews() {
         btnAddGPS = findViewById(R.id.btnAddGPS);
         btnNewBatch = findViewById(R.id.btnNewBatch);
         btnEditBatch = findViewById(R.id.btnEditBatch);
-        checkBox = findViewById(R.id.checkBox);
-        checkBox2 = findViewById(R.id.checkBox2);
-        checkBox3 = findViewById(R.id.checkBox3);
-        checkBox4 = findViewById(R.id.checkBox4);
-        checkBox5 = findViewById(R.id.checkBox5);
-        checkBox6 = findViewById(R.id.checkBox6);
-        checkBox7 = findViewById(R.id.checkBox7);
-        checkBox8 = findViewById(R.id.checkBox8);
-        checkBox9 = findViewById(R.id.checkBox9);
-        checkBox10 = findViewById(R.id.checkBox10);
-        checkBox11 = findViewById(R.id.checkBox11);
-        checkBox12 = findViewById(R.id.checkBox12);
-        checkBox13 = findViewById(R.id.checkBox13);
-        checkBox14 = findViewById(R.id.checkBox14);
-        checkBox15 = findViewById(R.id.checkBox15);
-        checkBox16 = findViewById(R.id.checkBox16);
-
+        btnQuit2 = findViewById(R.id.btnQuit2);
+        DataWrapper dw = (DataWrapper) getIntent().getSerializableExtra("batches");
+        if (dw != null) {
+            batches = dw.getBatches();
+        }
         //Button Functionality
         btnAddGPS.setOnClickListener(v -> {
             //TODO Grab current GPS
             startActivity(new Intent(BatchManagementActivity.this, BarcodeLocationActivity.class));
             // TODO Update checked batches with GPS data via SQLite
-            for(int i = 0; i < 16; i++){
-                onCheckboxClicked(this.findViewById(R.id.checkBox));
-
-            }
 
 
         });
         //Sends user back to scanning activity
         btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class)));
 
+        btnQuit2.setOnClickListener(v -> this.finish());
         btnEditBatch.setOnClickListener(v -> {
 
             //TODO 1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
@@ -124,33 +104,5 @@ public class BatchManagementActivity extends AppCompatActivity{
             //This is because the original scanning activity is built to start on a new batch.
 
         });
-
-
-
     }
-
-    //CheckBoxs
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        /*
-        switch(view.getId()) {
-            case R.id.checkBox:
-                if (checked)
-
-            else
-                break;
-            case R.id.checkBox2:
-                if (checked)
-
-            else
-
-                break;
-        }
-        */
-
-    }
-
 }

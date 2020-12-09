@@ -1,5 +1,9 @@
 /*Morning Star Scanning and Tracking V0.5 12/1/20
-By Ada Pluguez adapluguez@gmail.com
+By Ada Pluguez
+Contact Info: Email:adapluguez@gmail.com Phone:2096086998
+I was the lead engineer on this project and this is mostly my code.
+It is unfinished as I had to work alone primarily as my group was a bit unreliable.
+If you have any questions or would like this project completed contact me a the above email or telephone number.
 Description: This activity uses the device camera to scan barcodes in realtime.
 Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
 Then a container is created for insertion into a batch and the sql database.
@@ -7,7 +11,6 @@ When batch complete is pressed the scanned barcode list is cleared and the batch
 A new batch is created for continued scanning.
 When scanning complete is pressed the user is sent to the batch management screen to assign gps coordinates.
 Stages:
-
 0.6 Update batches via checklist by adding GPS data to batches - Build a batch detail screen
 0.7 Build a container detail screen accessed from the batch detail screen by click on a container in the batch list
 0.8 Build a view database functionality
@@ -66,7 +69,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     String row = "0";
     String section = "0";
     int batchID = 1;
-    String intentData =  intentData = "BatchID:" + batchID + ":\n";
+    String intentData  = "BatchID:" + batchID + ":\n";
     int barcode_count = 0;
     ArrayList<Container> containers = new ArrayList<>();
     ArrayList<Batch> batches = new ArrayList<>();
@@ -96,16 +99,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         final EditText input = new EditText(ScannedBarcodeActivity.this);
         alert.setView(input);
 
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                 row = input.getText().toString();
-
-            }
-        });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
+        alert.setPositiveButton("Ok", (dialog, whichButton) -> row = input.getText().toString());
+        alert.setNegativeButton("Cancel", (dialog, whichButton) -> {
+            // Canceled.
         });
 
         alert.show();
@@ -121,16 +117,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         final EditText input = new EditText(ScannedBarcodeActivity.this);
         alert.setView(input);
 
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                section = input.getText().toString();
-
-            }
-        });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
+        alert.setPositiveButton("Ok", (dialog, whichButton) -> section = input.getText().toString());
+        alert.setNegativeButton("Cancel", (dialog, whichButton) -> {
+            // Canceled.
         });
 
         alert.show();
@@ -197,18 +186,14 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 dbManager.insert_container(batchID,barcode, date, r,  s);
             }
 
-            Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity2.class);
+            Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class);
             DataWrapper a = new DataWrapper(batches);
             main.putExtra("batches", a);
             startActivity(main);
         });
 
-        btnRow.setOnClickListener(v -> {
-            rowAlert();
-        });
-        btnSec.setOnClickListener(v -> {
-            sectionAlert();
-        });
+        btnRow.setOnClickListener(v -> rowAlert());
+        btnSec.setOnClickListener(v -> sectionAlert());
         btnClearBatch.setOnClickListener(v -> {
             //Reset Container Array
             containers = new ArrayList<>();

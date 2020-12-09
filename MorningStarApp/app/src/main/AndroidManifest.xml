@@ -36,13 +36,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.morningstar.barcodevisionapi.BatchManagementActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.morningstar.barcodevisionapi.BatchManagementActivity2"
-            android:screenOrientation="portrait"/>
         <activity android:name="com.morningstar.barcodevisionapi.SearchActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.morningstar.barcodevisionapi.AddSectionRowActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.morningstar.barcodevisionapi.ModifyCountryActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.morningstar.barcodevisionapi.BarcodeLocationActivity"
             android:screenOrientation="portrait"/>
