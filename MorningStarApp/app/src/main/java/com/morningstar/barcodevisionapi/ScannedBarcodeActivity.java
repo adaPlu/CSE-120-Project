@@ -59,7 +59,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Button btnScanComplete;
     Button btnRow;
     Button btnSec;
-    Button btnClearScan;
     Button btnClearBatch;
     Button btnQuit;
 

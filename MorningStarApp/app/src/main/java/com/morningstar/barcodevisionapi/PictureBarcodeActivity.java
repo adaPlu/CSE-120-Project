@@ -5,12 +5,9 @@ Only works when barcodes are in close proximity, at the same angle, and in good 
 It also required loading the built in camera app on the android device as such it added extra steps to the workflow.
 The button to access it was removed from the final version for this reason, though the code and xml were
 left here in case anyone wants to develop it further.
-Camera May Require , This was removed due to android10+.
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-in AndroidManifest.xml
+Application May Require the below permission. This permisson was removed due to android10+.
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> add to AndroidManifest.xml
  */
-//Ada Pluguez - Morning Star Scanning and Tracking 0.1 11/3/20
-//Reference: https://www.journaldev.com/18198/qr-code-barcode-scanner-android
 
 import android.Manifest;
 import android.content.Context;
