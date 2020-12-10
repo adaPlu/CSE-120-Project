@@ -1,9 +1,6 @@
 /*Morning Star Scanning and Tracking V0.5 12/1/20
 By Ada Pluguez
 Contact Info: Email:adapluguez@gmail.com Phone:2096086998
-I was the lead engineer on this project and this is mostly my code.
-It is unfinished as I had to work alone primarily as my group was a bit unreliable.
-If you have any questions or would like this project completed contact me at the above email or telephone number.
 Description: This activity uses the device camera to scan barcodes in realtime.
 Once a barcode is scanned the user is asked to input the row and section, then the time and date are grabbed from the system clock.
 Then a container is created for insertion into a batch and the sql database.
