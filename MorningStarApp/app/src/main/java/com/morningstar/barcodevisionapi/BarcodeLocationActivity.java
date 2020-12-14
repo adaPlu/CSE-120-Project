@@ -69,7 +69,7 @@ public class BarcodeLocationActivity extends AppCompatActivity {
                 main.putExtra("LAT", latitude);
                 main.putExtra("LONG", longitude);
                 startActivity(main);
-                //Toast.makeText(getApplicationContext(), "Longitude: "+ currentLocation.getLongitude() + ", Latitude: "+currentLocation.getLatitude(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Longitude: "+ currentLocation.getLongitude() + ", Latitude: "+currentLocation.getLatitude(), Toast.LENGTH_LONG).show();
             });
             currentLocationResult.addOnFailureListener(this, e ->
                     Toast.makeText(getApplicationContext(), "Location failed: " + currentLocationResult.getException().toString(), Toast.LENGTH_LONG).show()
