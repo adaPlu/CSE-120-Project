@@ -185,6 +185,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             Intent main = new Intent(ScannedBarcodeActivity.this, BatchManagementActivity.class);
             DataWrapper a = new DataWrapper(batches);
             main.putExtra("batches", a);
+            this.finish();
             startActivity(main);
         });
 
@@ -210,8 +211,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
         btnQuit.setOnClickListener(v -> {
             this.finish();
-           // android.os.Process.killProcess(android.os.Process.myPid());
-            //startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
+            startActivity(new Intent(ScannedBarcodeActivity.this, MainActivity.class));
         });
 
     }

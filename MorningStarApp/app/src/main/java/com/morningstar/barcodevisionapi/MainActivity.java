@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     public void onClick(View v) {
         //Launch correct activity based on click, activate screen transitions
         if(v.getId() == R.id.btnScanBarcode){
+            this.finish();
             startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
         }
         if(v.getId() == R.id.btnExit){
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         }
         if(v.getId() == R.id.btnSearch){
+            this.finish();
             startActivity(new Intent(MainActivity.this, SearchActivity.class));
         }
         if(v.getId() == R.id.btnSync){

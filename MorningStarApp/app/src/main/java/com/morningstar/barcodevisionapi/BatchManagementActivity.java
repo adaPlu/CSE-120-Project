@@ -120,7 +120,9 @@ public class BatchManagementActivity extends AppCompatActivity {
         //Sends user back to scanning activity
         btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class)));
 
-        btnQuit2.setOnClickListener(v -> this.finish());
+        btnQuit2.setOnClickListener(v ->
+                       quitManage()
+        );//this.finish() startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class)));
         btnEditBatch.setOnClickListener(v -> {
 
             //TODO 1.Only allows a single batch to be selected, if more than one is selected warn user with Toast(small text at bottom of screen) to only select one.
@@ -135,7 +137,10 @@ public class BatchManagementActivity extends AppCompatActivity {
         });
     }
 
-    //Changed to grab lat and long and send to activity. --Ada
+    public void quitManage(){
+        this.finish();
+        startActivity(new Intent(BatchManagementActivity.this, MainActivity.class));
+    }
     public void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             CancellationTokenSource cts = new CancellationTokenSource();
