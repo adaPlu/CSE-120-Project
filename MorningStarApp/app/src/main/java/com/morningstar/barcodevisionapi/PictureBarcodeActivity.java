@@ -5,7 +5,7 @@ Only works when barcodes are in close proximity, at the same angle, and in good 
 It also required loading the built in camera app on the android device as such it added extra steps to the workflow.
 The button to access it was removed from the final version for this reason, though the code and xml were
 left here in case anyone wants to develop it further.
-Application May Require the below permission. This permisson was removed due to android10+.
+Application May Require the below permission. This permisson was removed due to android10+-- See compile warnings.
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> add to AndroidManifest.xml
  */
 

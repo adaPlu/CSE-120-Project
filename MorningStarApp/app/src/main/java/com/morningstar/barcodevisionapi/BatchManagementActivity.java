@@ -8,16 +8,39 @@ package com.morningstar.barcodevisionapi;
 *
 * */
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import android.widget.AdapterView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.CancellationTokenSource;
+import com.google.android.gms.tasks.Task;
+
 import java.util.ArrayList;
+import java.util.Objects;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
 public class BatchManagementActivity extends AppCompatActivity {
@@ -28,11 +51,17 @@ public class BatchManagementActivity extends AppCompatActivity {
     //Variables
     private DBManager dbManager;
     private SimpleCursorAdapter adapter2;
+    private static final int REQUEST_CHECK_SETTINGS = 1;
+    private static final int REQUEST_FINE_LOCATION = 2;
+    private FusedLocationProviderClient mFusedLocationClient;
+
     //Widgets
     Button btnAddGPS;
     Button btnNewBatch;
     Button btnEditBatch;
     Button btnQuit2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +112,9 @@ public class BatchManagementActivity extends AppCompatActivity {
         //Button Functionality
         btnAddGPS.setOnClickListener(v -> {
             //TODO Grab current GPS
-            startActivity(new Intent(BatchManagementActivity.this, BarcodeLocationActivity.class));
+           //startActivity(new Intent(BatchManagementActivity.this, BarcodeLocationActivity.class));
             // TODO Update checked batches with GPS data via SQLite
-
+            getLocation();
 
         });
         //Sends user back to scanning activity
@@ -104,5 +133,59 @@ public class BatchManagementActivity extends AppCompatActivity {
             //This is because the original scanning activity is built to start on a new batch.
 
         });
+    }
+
+    //Changed to grab lat and long and send to activity. --Ada
+    public void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            Task<Location> currentLocationResult = getFusedLocationProviderClient(this).getCurrentLocation(PRIORITY_HIGH_ACCURACY, cts.getToken());
+            currentLocationResult.addOnSuccessListener(this, Location -> {
+                Location currentLocation = currentLocationResult.getResult();
+                double latitude = currentLocation.getLatitude();
+                double longitude = currentLocation.getLongitude();
+                //Update a batch with GPS
+                Toast.makeText(getApplicationContext(), "Longitude: "+ currentLocation.getLongitude() + ", Latitude: "+currentLocation.getLatitude(), Toast.LENGTH_SHORT).show();
+            });
+            currentLocationResult.addOnFailureListener(this, e ->
+                    Toast.makeText(getApplicationContext(), "Location failed: " + Objects.requireNonNull(currentLocationResult.getException()).toString(), Toast.LENGTH_SHORT).show()
+            );
+        }
+        else {
+            requestPermissions(new String[]{ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
+        }
+    }
+
+    void displayLocationSettingsRequest(Context context) {
+        LocationRequest mHighAccuracyLocationRequest = new LocationRequest();
+        mHighAccuracyLocationRequest.setPriority(PRIORITY_HIGH_ACCURACY);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mHighAccuracyLocationRequest);
+        LocationSettingsRequest locationSettingsRequest = builder.build();
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+
+
+        Task<LocationSettingsResponse> result = settingsClient.checkLocationSettings(builder.build());
+        result.addOnSuccessListener(this, locationSettingsResponse ->
+                getLocation()
+        );
+        result.addOnFailureListener(this, e -> {
+            if ( e instanceof ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+
+                Toast.makeText(getApplicationContext(), "Everything Not Turned On", Toast.LENGTH_LONG).show();
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(BatchManagementActivity.this, REQUEST_CHECK_SETTINGS);
+                } catch (IntentSender.SendIntentException sendEx) {
+                    // Ignore the error.
+                }
+            }
+        });
+
+
     }
 }
