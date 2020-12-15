@@ -45,12 +45,13 @@ public class SearchActivity extends AppCompatActivity{
     //Init view of screen widgets
     private void initViews() {
         //searchBar = findViewById(R.id.search);
+        btnQuitSearch = findViewById(R.id.btnQuitSearch);
         btnQuitSearch.setOnClickListener(v -> quitSearch());
 
     }
 
     public void quitSearch(){
         this.finish();
-        startActivity(new Intent(SearchActivity.this, MainActivity.class));
+       startActivity(new Intent(SearchActivity.this, MainActivity.class));
     }
 }
