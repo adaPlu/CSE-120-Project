@@ -25,7 +25,7 @@ public class SearchActivity extends AppCompatActivity{
     private SimpleCursorAdapter adapter;
     //Widgets
     SearchView searchBar;
-    Button quitSearch;
+    Button btnQuitSearch;
 
 
     //Same as main
@@ -44,12 +44,13 @@ public class SearchActivity extends AppCompatActivity{
     }
     //Init view of screen widgets
     private void initViews() {
-        searchBar = findViewById(R.id.search);
-
+        //searchBar = findViewById(R.id.search);
+        btnQuitSearch.setOnClickListener(v -> quitSearch());
 
     }
-     public void quitSearch(){
-         this.finish();
-         startActivity(new Intent(SearchActivity.this, MainActivity.class));
-     }
+
+    public void quitSearch(){
+        this.finish();
+        startActivity(new Intent(SearchActivity.this, MainActivity.class));
+    }
 }
