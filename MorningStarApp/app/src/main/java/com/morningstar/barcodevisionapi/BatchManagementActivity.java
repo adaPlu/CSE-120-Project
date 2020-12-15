@@ -118,7 +118,7 @@ public class BatchManagementActivity extends AppCompatActivity {
 
         });
         //Sends user back to scanning activity
-        btnNewBatch.setOnClickListener(v -> startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class)));
+        btnNewBatch.setOnClickListener(v -> newBatch());
 
         btnQuit2.setOnClickListener(v ->
                        quitManage()
@@ -136,7 +136,10 @@ public class BatchManagementActivity extends AppCompatActivity {
 
         });
     }
-
+    public void newBatch(){
+        this.finish();
+        startActivity(new Intent(BatchManagementActivity.this, ScannedBarcodeActivity.class));
+    }
     public void quitManage(){
         this.finish();
         startActivity(new Intent(BatchManagementActivity.this, MainActivity.class));
