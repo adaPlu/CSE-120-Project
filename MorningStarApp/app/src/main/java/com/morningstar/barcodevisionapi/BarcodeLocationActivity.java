@@ -81,6 +81,7 @@ public class BarcodeLocationActivity extends AppCompatActivity {
     }
 
     void displayLocationSettingsRequest(Context context) {
+        /*
         LocationRequest mHighAccuracyLocationRequest = new LocationRequest();
         mHighAccuracyLocationRequest.setPriority(PRIORITY_HIGH_ACCURACY);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
@@ -88,10 +89,13 @@ public class BarcodeLocationActivity extends AppCompatActivity {
         LocationSettingsRequest locationSettingsRequest = builder.build();
         SettingsClient settingsClient = LocationServices.getSettingsClient(this);
 
+         */
+        getLocation();
 
+        /*
         Task<LocationSettingsResponse> result = settingsClient.checkLocationSettings(builder.build());
         result.addOnSuccessListener(this, locationSettingsResponse ->
-                getLocation()
+
         );
         result.addOnFailureListener(this, e -> {
             if ( e instanceof ResolvableApiException) {
@@ -111,6 +115,6 @@ public class BarcodeLocationActivity extends AppCompatActivity {
             }
         });
 
-
+        */
     }
 }
